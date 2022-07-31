@@ -16,7 +16,7 @@ const {verificationpermission} = require("../fonctions/verificationpermission");
 
 module.exports = {
     name: "nom_de_l'event",
-     execute(resultat_de_levent(member/channel/role/etc)) {
+     execute(resultat_de_levent) { //User/role/channel/message/guild/etc...
         // Ce que l'event va exécuté si il est détecter sur discord
     }
 }
