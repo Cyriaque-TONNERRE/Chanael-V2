@@ -19,8 +19,8 @@ function register_user(id){
             mois: 0,
             annee: 0
         },
-        ticket: null,
-        adminTicket: null
+        ticket: undefined,
+        adminTicket: undefined
     })
 }
 

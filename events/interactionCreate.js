@@ -3,6 +3,7 @@ const {fcollector} = require("../fonctions/new_user");
 const {channelRulesId, mainRolesId, roleMainId, channelWelcomeId} = require("../config.json");
 const {randomInt} = require("mathjs");
 const {QuickDB} = require("quick.db");
+const {verificationpermission} = require("../fonctions/verificationpermission");
 
 const db = new QuickDB();
 
@@ -73,5 +74,15 @@ module.exports = {
             interaction.reply({content: 'Vous avez accepté le règlement.', ephemeral: true});
         }
 
+        // Partie Fin d'un ticket
+
+        if (interaction.customId === `end_ticket`) {
+            if (verificationpermission(interaction)) {
+                const member = interaction.guild.members.cache.find(member => member.id === interaction.channel.topic);
+                user_db.delete(member.id + ".ticket").then(() => {
+                    interaction.channel.delete();
+                });
+            }
+        }
     }
 }
