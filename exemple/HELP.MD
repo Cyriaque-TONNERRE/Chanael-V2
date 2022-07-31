@@ -21,4 +21,12 @@ Si ça marche pas, il faut installer node js :
 - **Dossier fonctions :** Où sont stocké les fonctions (eg : `verificationpermission`)
 - **Dossier exemple :** Où sont donné les exemples pour build ce bot (eg : `ce fichier`)
 
-
+## Pour démarrer le bot :
+- Executer la commande ci dessous à l'intérieur du dossier du bot
+ ```bash
+ node index.js
+ ```
+- Si une commande à été modifié, il faut avant exécuter la commande ci dessous
+```bash
+node deploy-commands.js
+```
