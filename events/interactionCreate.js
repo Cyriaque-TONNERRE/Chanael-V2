@@ -20,7 +20,9 @@ module.exports = {
         // Partie Rename
 
         if (interaction.customId === `validate`) {
-            if (interaction.channel.name === interaction.member.user.username) {
+          console.log(interaction.channel.name);
+          console.log(interaction.member.user.user);
+            if (interaction.channel.name === interaction.member.user.username.toLowerCase()) {
                 user_db.get(interaction.member.id + ".nom").then((nom) => {
                     user_db.get(interaction.member.id + ".prenom").then((prenom) => {
                         console.log(nom + " " + prenom);
