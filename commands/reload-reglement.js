@@ -13,9 +13,9 @@ module.exports = {
                 .setDescription('Pour accepter le règlement du serveur veuillez interagir avec le bouton ci-dessous !\n')
             const accep_reglement = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
-                    .setCustomId('accept_reglement')
-                    .setLabel('Accepter')
-                    .setStyle(ButtonStyle.Success),
+                    .setLabel('Accepté')
+                    .setStyle(ButtonStyle.Success)
+                    .setDisabled(),
             );
             const reglement_channel = interaction.guild.channels.cache.get(channelRulesId);
             reglement_channel.messages.fetch(reglement_channel.lastMessageId).then(message => {

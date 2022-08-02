@@ -1,6 +1,6 @@
-const {EmbedBuilder} = require("discord.js");
+const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const {fcollector} = require("../fonctions/new_user");
-const {channelRulesId, mainRolesId, roleMainId, channelWelcomeId} = require("../config.json");
+const {channelRulesId, mainRolesId,roleModoId , channelWelcomeId, categoryLoginId} = require("../config.json");
 const {randomInt} = require("mathjs");
 const {QuickDB} = require("quick.db");
 const {verificationpermission} = require("../fonctions/verificationpermission");
@@ -8,6 +8,8 @@ const {verificationpermission} = require("../fonctions/verificationpermission");
 const db = new QuickDB();
 
 const user_db = db.table("user");
+
+/*-----/!\------Attention-ce-fichier-ne-gère-que-les-boutons-----/!\----------*/
 
 module.exports = {
     name: 'interactionCreate',
@@ -21,13 +23,46 @@ module.exports = {
             if (interaction.channel.name === interaction.member.user.username) {
                 user_db.get(interaction.member.id + ".nom").then((nom) => {
                     user_db.get(interaction.member.id + ".prenom").then((prenom) => {
-                        console.log(nom);
-                        console.log(prenom);
+                        console.log(nom + " " + prenom);
                         interaction.member.setNickname(`${prenom} ${nom}`).then(() => {
-                            interaction.guild.channels.cache.find(channel => channel.id === channelRulesId).permissionOverwrites.create(interaction.member.id, {
-                                ViewChannel: true,
-                            }).then(() => {
-                                interaction.channel.delete();
+                            interaction.guild.channels.cache.find(channel => channel.id === channelRulesId).clone(option => {
+                                option
+                                    .setName('reglement-'+interaction.member.id)
+                                    .setParent(categoryLoginId)
+                            }).then((channel) => {
+                                channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
+                                    ViewChannel: false,
+                                }).then(() => {
+                                    channel.permissionOverwrites.create(interaction.member, {
+                                        ViewChannel: true,
+                                        SendMessages: false,
+                                        ReadMessageHistory: true
+                                    }).then(() => {
+                                        channel.permissionOverwrites.create(interaction.guild.roles.cache.find(role => role.id === roleModoId), {
+                                            ViewChannel: true,
+                                            SendMessages: true,
+                                            ReadMessageHistory: true
+                                        }).then(() => {
+                                            const embed_reglement = new EmbedBuilder()
+                                                .setColor('#da461a')
+                                                .setTitle('Acceptez le règlement de Promo 67, 5 pour accéder à l\'intégralité du serveur')
+                                                .setDescription('Pour accepter le règlement du serveur veuillez interagir avec le bouton ci-dessous !\n')
+                                            const accep_reglement = new ActionRowBuilder().addComponents(
+                                                new ButtonBuilder()
+                                                    .setCustomId('accept_reglement')
+                                                    .setLabel('Accepter')
+                                                    .setStyle(ButtonStyle.Success)
+                                                    .setDisabled(),
+                                            );
+                                            channel.messages.fetch(channel.lastMessageId).then(message => {
+                                                message.delete().then(() => {
+                                                    channel.send({embeds: [embed_reglement], components: [accep_reglement]});
+                                                    interaction.channel.delete();
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
                             });
                         });
                     });
@@ -71,7 +106,7 @@ module.exports = {
                     });
                 });
             }
-            interaction.reply({content: 'Vous avez accepté le règlement.', ephemeral: true});
+            interaction.reply({content: 'Vous avez accepté le règlement.', ephemeral: true});            ;
         }
 
         // Partie Fin d'un ticket
@@ -80,6 +115,17 @@ module.exports = {
             if (verificationpermission(interaction)) {
                 const member = interaction.guild.members.cache.find(member => member.id === interaction.channel.topic);
                 user_db.delete(member.id + ".ticket").then(() => {
+                    interaction.channel.delete();
+                });
+            }
+        }
+
+        // Partie Fin d'un admin ticket
+
+        if (interaction.customId === `end_admin_ticket`) {
+            if (verificationpermission(interaction)) {
+                const member = interaction.guild.members.cache.find(member => member.id === interaction.channel.topic.slice(6));
+                user_db.delete(member.id + ".adminTicket").then(() => {
                     interaction.channel.delete();
                 });
             }

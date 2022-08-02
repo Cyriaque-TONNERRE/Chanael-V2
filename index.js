@@ -14,6 +14,7 @@ const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits
 const db = new QuickDB();
 
 const user_db = db.table("user");
+const onerole_db = db.table("onerole");
 
 //----------------Partie-Commandes----------------//
 client.commands = new Collection();
