@@ -24,7 +24,7 @@ module.exports = {
                     name: `admin-ticket-${member.displayName}`,
                     type: 0,
                     parent: categoryTicketId,
-                    topic: "admin-" + member.id,
+                    topic: "admin-ticket-" + member.id,
                 }).then(channel => {
                     user_db.set(member.user.id + ".adminTicket", channel.id).then(() => {
                         interaction.reply({content: `Votre ticket a bien été créé.`, ephemeral: true}).then(() => {

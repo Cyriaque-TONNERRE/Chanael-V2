@@ -17,6 +17,7 @@ module.exports = {
         }
         member.guild.channels.create({
             name: member.displayName,
+            topic: "enregistrement-"+member.id,
             type: 0,
             parent: categoryLoginId,
             permissionOverwrites: [
