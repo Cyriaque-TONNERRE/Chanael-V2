@@ -106,4 +106,5 @@ dist
 /.eslintrc.json
 config.json
 *.sqlite
+json.sqlite
 
