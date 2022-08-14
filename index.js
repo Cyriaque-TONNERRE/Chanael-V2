@@ -32,8 +32,7 @@ for (const file of commandFiles) {
 client.on('interactionCreate',  async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
-    if (!await user_db.has(interaction.member.id)) {
-        console.log(interaction.member.id + " n'a pas encore de compte.");
+    if (!await user_db.has(interaction.member.id)) {    
         register_user(interaction.member.id).then(() => {
             const command = client.commands.get(interaction.commandName);
 
