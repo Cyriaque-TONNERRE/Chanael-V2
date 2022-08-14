@@ -29,37 +29,39 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-client.on('interactionCreate', async interaction => {
+client.on('interactionCreate',  async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
-    if (!await user_db.has(interaction.member.id)){
-        Promise.resolve(register_user(interaction.member.id)).then(async () => {
+    if (!await user_db.has(interaction.member.id)) {
+        console.log(interaction.member.id + " n'a pas encore de compte.");
+        register_user(interaction.member.id).then(() => {
             const command = client.commands.get(interaction.commandName);
 
             if (!command) return;
 
             try {
-                await command.execute(interaction);
+                command.execute(interaction);
             } catch (error) {
                 console.error(error);
-                await interaction.reply({
+                interaction.reply({
                     content: 'Il y a eu une erreur durant l\'exécution de la commande !',
                     ephemeral: true
                 });
             }
-        });
+        })
     } else {
         const command = client.commands.get(interaction.commandName);
 
         if (!command) return;
 
         try {
-            await command.execute(interaction);
+            command.execute(interaction);
         } catch (error) {
             console.error(error);
-            await interaction.reply({ content: 'Il y a eu une erreur durant l\'exécution de la commande !', ephemeral: true });
+            interaction.reply({content: 'Il y a eu une erreur durant l\'exécution de la commande !', ephemeral: true});
         }
     }
+
 });
 
 //----------------Partie-Evenement----------------//
