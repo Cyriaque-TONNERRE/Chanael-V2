@@ -22,6 +22,7 @@ function register_user(id){
         ticket: undefined,
         adminTicket: undefined
     })
+    return true;
 }
 
 module.exports =  {register_user};

@@ -33,18 +33,32 @@ client.on('interactionCreate', async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
     if (!await user_db.has(interaction.member.id)){
-        register_user(interaction.member.id);
-    }
+        Promise.resolve(register_user(interaction.member.id)).then(async () => {
+            const command = client.commands.get(interaction.commandName);
 
-    const command = client.commands.get(interaction.commandName);
+            if (!command) return;
 
-    if (!command) return;
+            try {
+                await command.execute(interaction);
+            } catch (error) {
+                console.error(error);
+                await interaction.reply({
+                    content: 'Il y a eu une erreur durant l\'exécution de la commande !',
+                    ephemeral: true
+                });
+            }
+        });
+    } else {
+        const command = client.commands.get(interaction.commandName);
 
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.reply({ content: 'Il y a eu une erreur durant l\'exécution de la commande !', ephemeral: true });
+        if (!command) return;
+
+        try {
+            await command.execute(interaction);
+        } catch (error) {
+            console.error(error);
+            await interaction.reply({ content: 'Il y a eu une erreur durant l\'exécution de la commande !', ephemeral: true });
+        }
     }
 });
 
