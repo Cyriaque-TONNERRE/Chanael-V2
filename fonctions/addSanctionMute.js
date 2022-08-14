@@ -1,10 +1,11 @@
 const {QuickDB} = require("quick.db");
+const {register_user} = require("./register_user");
 
 const db = new QuickDB();
 
 const user_db = db.table("user");
 
-function addSanction(member, reason, modo, channel, link) {
+async function addSanction(member, reason, modo, channel, link) {
     let sanction;
     if (link === undefined) {
         sanction = {
@@ -21,11 +22,22 @@ function addSanction(member, reason, modo, channel, link) {
             link: link,
         }
     }
-    user_db.push(member.id + ".sanction", sanction).then(() => {
-        user_db.add(member.id + ".nbSanction", 1).then(() => {
-            automute(member, channel);
+    if (!await user_db.has(member.id)) {
+        register_user(member.id).then(r => {
+            user_db.push(member.id + ".sanction", sanction).then(() => {
+                user_db.add(member.id + ".nbSanction", 1).then(() => {
+                    automute(member, channel);
+                });
+            });
         });
-    })
+    } else {
+        user_db.push(member.id + ".sanction", sanction).then(() => {
+            user_db.add(member.id + ".nbSanction", 1).then(() => {
+                automute(member, channel);
+            });
+        });
+    }
+
 }
 
 function automute(member, channel) {
