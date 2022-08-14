@@ -107,4 +107,5 @@ dist
 config.json
 *.sqlite
 json.sqlite
+*est.js
 

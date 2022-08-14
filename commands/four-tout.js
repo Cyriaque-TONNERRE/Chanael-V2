@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, Client } = require('discord.js');
+const {randomInt, forEach} = require("mathjs");
+const {guildId, channelBDayId} = require("../config.json");
+const {QuickDB} = require("quick.db");
+const db = new QuickDB();
+const user_db = db.table("user");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('four-tout')
         .setDescription('Execute du code pour le fun.'),
-    execute(interaction) {
-        const result = interaction.guild.channels.cache.find(channel => channel.name === interaction.member.user.username.toLowerCase());
-        console.log(result);
-        interaction.reply({
-            content: "ça fait tout crash, fait pas ça",
-            ephemeral: true
-        });
+    async execute(interaction) {
+        interaction.reply({content: "RATIO : " + randomInt(0, 100) + "%"});
     },
 };

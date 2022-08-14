@@ -64,33 +64,15 @@ for (const file of eventFiles) {
 }
 
 //----------------Partie-Cron-----------------//
-cron.schedule('0 8 * * *', async () => {
-    await bday_db.all().then(list => {
-        forEach(list, (elem) => {
-            if (elem.value.jour === new Date().getDate() && elem.value.mois === new Date().getMonth() + 1) {
-                const bdaygif = ["https://media3.giphy.com/media/SwIMZUJE3ZPpHAfTC4/giphy.gif", "https://tenor.com/Y8iY.gif", "https://tenor.com/bBJpT.gif", "https://tenor.com/bRZjc.gif", "https://tenor.com/bNoxv.gif", "https://tenor.com/bdecb.gif", "https://i.pinimg.com/originals/11/68/82/116882088dc7f44d5cc3d3377f963c70.gif", "https://thumbs.gfycat.com/RepentantUnpleasantFantail-size_restricted.gif", "https://imgur.com/34YQYmg", "https://media.giphy.com/media/oXpZ1sLkbCZ9jFhBMx/giphy.gif", "https://hurfat.com/wp-content/uploads/2021/07/Happy-Birthday...-22.gif", "https://i.pinimg.com/originals/28/35/2f/28352f4f85ebb3ff4019c0b4a2dd0092.gif", "https://cdn.discordapp.com/attachments/987748619010576424/996437041199992985/b5ae8413d8b1167720f3804fb58faaf8.gif", "https://cdn.discordapp.com/attachments/987748619010576424/996437061819170966/giphy.gif", "https://cdn.discordapp.com/attachments/987748619010576424/996437151367565392/Gvb.gif", "https://cdn.discordapp.com/attachments/987748619010576424/1000099809346211890/Untitled111.gif"];
-                const member = bot.guilds.cache.get(config.GUILD_ID).members.cache.get(elem.id);
-                if (member) {
-                    const embed_bday = new MessageEmbed()
-                        .setColor('#cc532e')
-                        .setTitle('Joyeux Anniversaire ! 🎉')
-                        .setDescription(`Aujourd'hui c'est l'anniversaire de <@${member.user.id}> ! 🎈 🎂 🎊\n`)
-                        .setThumbnail(bdaygif[randomInt(0, 16)])
-                        .setFooter({
-                            text: 'Pensez à lui faire sa fête bande de BG',
-                            iconURL: `https://twemoji.maxcdn.com/v/latest/72x72/1f61c.png`
-                        })
-                    bot.guilds.cache.get(config.GUILD_ID).channels.fetch(config.ANNIVERSAIRE_CHANNEL).then(channel => {
-                        channel.send({embeds: [embed_bday]});
-                    });
-                }
-            }
-        });
-    });
-}, {
-    scheduled: true,
-    timezone: "Europe/Paris"
-});
+
+const cronPath = path.join(__dirname, 'cron');
+const cronFiles = fs.readdirSync(cronPath).filter(file => file.endsWith('.js'));
+
+for (const file of cronFiles) {
+    const filePath = path.join(cronPath, file);
+    const cron = require(filePath);
+    cron.execute(client);
+}
 
 //----------------Partie-Ratio----------------//
 
