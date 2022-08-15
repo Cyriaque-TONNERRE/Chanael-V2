@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const {verificationpermission} = require("../fonctions/verificationpermission");
 const {roleModoId, roleAdminId, clientId} = require("../config.json");
 const {addSanction} = require("../fonctions/addSanctionMute");
@@ -38,7 +38,7 @@ module.exports = {
     execute(interaction) {
         if(verificationpermission(interaction)) {
             const user = interaction.guild.members.cache.get(interaction.options.getUser('pseudo').id);
-            if (user.roles.cache.find(role => role.id === roleModoId) || user.roles.cache.find(role => role.id === roleAdminId) || user.permissions.has('Administrator')) {
+            if (user.roles.cache.find(role => role.id === roleModoId) || user.roles.cache.find(role => role.id === roleAdminId) || user.permissions.has(PermissionFlagsBits.Administrator)) {
                 interaction.reply({
                     content: `Vous ne pouvez pas mute un modérateur ou un administrateur.`,
                     ephemeral: true

@@ -11,7 +11,6 @@ module.exports = {
     name: 'anniv',
     execute(client) {
         cron.schedule('0 8 * * *', async () => {
-            console.log('Anniversaire');
             await user_db.all().then(list => {
                 forEach(list, (elem) => {
                     if (elem.value.dateAnniv !== undefined) {
