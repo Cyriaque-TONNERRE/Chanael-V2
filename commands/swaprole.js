@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, Client, GatewayIntentBits} = require('discord.js');
+const { SlashCommandBuilder} = require('discord.js');
 const { verificationpermission } = require("../fonctions/verificationpermission");
 const {QuickDB} = require("quick.db");
 
