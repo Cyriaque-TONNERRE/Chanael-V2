@@ -52,6 +52,7 @@ client.on('interactionCreate',  async interaction => {
         if (!command) return;
 
         try {
+            console.log(`${interaction.member.displayName} a utilisé la commande ${interaction.commandName}`);
             command.execute(interaction);
         } catch (error) {
             console.error(error);
