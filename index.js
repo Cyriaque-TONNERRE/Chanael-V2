@@ -1,7 +1,5 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const maths = require('mathjs');
-const cron = require('node-cron');
 const { QuickDB } = require("quick.db");
 const { Client, GatewayIntentBits, Collection} = require('discord.js');
 const { token } = require('./config.json');
@@ -14,7 +12,6 @@ const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits
 const db = new QuickDB();
 
 const user_db = db.table("user");
-const onerole_db = db.table("onerole");
 
 //----------------Partie-Commandes----------------//
 client.commands = new Collection();
@@ -39,6 +36,7 @@ client.on('interactionCreate',  async interaction => {
             if (!command) return;
 
             try {
+                console.log(`${interaction.member.displayName} a utilisé la commande ${interaction.commandName}`);
                 command.execute(interaction);
             } catch (error) {
                 console.error(error);
