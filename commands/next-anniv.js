@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const {QuickDB} = require("quick.db");
-const {clientId} = require("../config.json");
 const {forEach} = require("mathjs");
 const db = new QuickDB();
 
