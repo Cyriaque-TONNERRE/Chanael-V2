@@ -41,7 +41,7 @@ module.exports = {
                 nextAnnivEmbed.setDescription('Aucun anniversaire à venir.');
             } else {
                 if (orderTab.length > 10) {
-                    orderTab = orderTab.splice(0, 9);
+                    orderTab = orderTab.splice(0, 10);
                 }
                 let description = `Voici la liste des ${orderTab.length} prochains membres fêtant leur anniversaire :\n\n`;
                 orderTab.forEach((user) => {
