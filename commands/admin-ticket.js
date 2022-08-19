@@ -9,7 +9,7 @@ const user_db = db.table("user");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('admin-ticket')
-        .setDescription('Créer un ticket.')
+        .setDescription('Créer un ticket avec un membre.')
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('L\'utilisateur à qui vous souhaitez créer un ticket.')
