@@ -12,7 +12,7 @@ module.exports = {
         .setDescription('Créer un ticket avec un membre.')
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('L\'utilisateur à qui vous souhaitez créer un ticket.')
+                .setDescription('Utilisateur concerné.')
                 .setRequired(true)
         ),
     async execute(interaction) {
