@@ -8,14 +8,14 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('give')
         .setDescription(`Permet de transférer des Octets à un autre membre.`)
-        .addIntegerOption(option =>
-            option.setName('montant')
-                .setDescription('Quantité d\'Octets à donner.')
-                .setRequired(true),
-        )
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('Utilisateur qui va recevoir les Octets.')
+                .setRequired(true),
+        )
+        .addIntegerOption(option =>
+            option.setName('montant')
+                .setDescription('Quantité d\'Octets à donner.')
                 .setRequired(true),
         )
         .addStringOption(option =>
