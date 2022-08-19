@@ -7,7 +7,7 @@ const user_db = db.table("user");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('give')
-        .setDescription(`Permet de transférer des Octets à une personne.`)
+        .setDescription(`Permet de transférer des Octets à un autre membre.`)
         .addIntegerOption(option =>
             option.setName('montant')
                 .setDescription('Quantité d\'Octets à donner.')
@@ -15,7 +15,7 @@ module.exports = {
         )
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('Utilisateur à qui donner les Octets.')
+                .setDescription('Utilisateur qui va recevoir les Octets.')
                 .setRequired(true),
         )
         .addStringOption(option =>
