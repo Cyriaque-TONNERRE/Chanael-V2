@@ -9,19 +9,20 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('swaprole')
         .setDescription('Échange le propriaitaire d\'un role unique.')
-        .addUserOption(option =>
-            option.setName('user')
-                .setDescription('L\'utilisateur à qui vous souhaitez créer un ticket.')
-                .setRequired(true)
-        )
         .addStringOption(option =>
             option.setName('role')
-                .setDescription('Le rôle à ajouter.')
+                .setDescription('Le rôle concerné.')
                 .setRequired(true)
                 .addChoices(
                     {name: "Best Punch", value: "934124797691068477"},
                     {name: "Culturé", value: "914216512309575710"}
-                )),
+                )
+        )
+        .addUserOption(option =>
+            option.setName('user')
+                .setDescription('L\'utilisateur qui va recevoir le rôle.')
+                .setRequired(true)
+        ),
     async execute(interaction) {
         if (verificationpermission(interaction)) {
             const pseudo = interaction.options.getUser("user");
