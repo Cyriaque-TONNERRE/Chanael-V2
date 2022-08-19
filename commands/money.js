@@ -7,10 +7,10 @@ const user_db = db.table("user");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('money')
-        .setDescription(`Affiche la money de l'utilisateur.`)
+        .setDescription(`Affiche le nombre d\'Octets de l'utilisateur.`)
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('Utilisateur à qui afficher la money.')
+                .setDescription('Utilisateur concerné.')
                 .setRequired(false),
         ),
 
