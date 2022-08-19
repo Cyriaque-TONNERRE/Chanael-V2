@@ -7,7 +7,7 @@ const user_db = db.table("user");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('daily')
-        .setDescription(`Permet de récupérer des octets chaque jours.`),
+        .setDescription(`Permet de récupérer des Octets chaque jours.`),
 
     async execute(interaction) {
         if (await user_db.get(interaction.user.id + `.lastDaily`) === null) {
