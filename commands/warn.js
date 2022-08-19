@@ -14,7 +14,7 @@ module.exports = {
         .setDescription(`Ajoute un avertissement à un utilisateur.`)
         .addUserOption(option =>
             option.setName('pseudo')
-                .setDescription('Le pseudo de l\'utilisateur.')
+                .setDescription('L\'utilisateur concerné.')
                 .setRequired(true)
         )
         .addStringOption(option =>

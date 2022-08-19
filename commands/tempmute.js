@@ -9,7 +9,7 @@ module.exports = {
         .setDescription('Mute un utilisateur pendant un certain temps.')
         .addUserOption(option =>
             option.setName('pseudo')
-                .setDescription('L\'utilisateur à mute.')
+                .setDescription('L\'utilisateur concerné.')
                 .setRequired(true)
         )
         .addIntegerOption(option =>
