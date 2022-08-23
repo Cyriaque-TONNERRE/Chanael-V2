@@ -34,7 +34,7 @@ module.exports = {
             });
             const nextAnnivEmbed = new EmbedBuilder()
                 .setColor('#a21be3')
-                .setTitle(`Anniversaires à venir sur le serveur !`)
+                .setTitle(`Anniversaires à venir sur le serveur ! :beers:`)
                 .setFooter({text: `N'hésitez pas à ajouter votre anniversaire avec /setanniv`});
             orderTab.sort((a, b) => a.date - b.date);
             if (orderTab.length === 0) {
@@ -52,7 +52,7 @@ module.exports = {
                     } else {
                         annee = new Date().getFullYear() - date.annee;
                     }
-                    description = description.concat(`> **${interaction.guild.members.cache.get(user.id).displayName}**: ${date.jour} ${month[date.mois - 1]} (${annee} ans):tada:\n`);
+                    description = description.concat(`> **${interaction.guild.members.cache.get(user.id).displayName}**: ${date.jour} ${month[date.mois - 1]} (${annee} ans)\n`);
                 })
                 nextAnnivEmbed.setDescription(description);
                 interaction.reply({embeds: [nextAnnivEmbed]});
