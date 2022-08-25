@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const { EmbedBuilder, Guild} = require('discord.js');
+const { EmbedBuilder} = require('discord.js');
 const {QuickDB} = require("quick.db");
 const {forEach, randomInt} = require("mathjs");
 const { guildId, channelBDayId } = require('../config.json');

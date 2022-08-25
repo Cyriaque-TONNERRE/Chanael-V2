@@ -1,13 +1,16 @@
 {
   "name": "Chanael-V2",
   "version": "1.0.0",
+    "description": "Bot pour le serveur Discord de la promo 67 ISEN LILLE",
+  "main": "index.js",
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
+    "better-sqlite3": "^7.6.2",
     "discord.js": "^14.0.3",
     "mathjs": "^11.0.0",
     "node-cron": "^3.0.1",
+    "puppeteer": "^16.2.0",
     "quick.db": "^9.0.5",
-    "uuid": "^8.3.2",
-    "better-sqlite3": "^7.6.2"
+    "uuid": "^8.3.2"
   }
 }
