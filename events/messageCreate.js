@@ -29,7 +29,7 @@ module.exports = {
                                 .setColor('#0162b0')
                                 .setTitle(`Bravo ${message.guild.members.cache.get(message.author.id).displayName} !`)
                                 .setThumbnail(message.author.displayAvatarURL())
-                                .setDescription(`Vous avez atteint le niveau ${lvl+1} !`)
+                                .setDescription(`Vous avez atteint le niveau ${lvl + 1} !`)
                                 .setTimestamp()
                                 .setFooter({ text: 'Chanael', iconURL: message.guild.members.cache.get(clientId).displayAvatarURL()});
                             message.guild.channels.cache.get(channelBotId).send({embeds: [lvlupEmbed]});

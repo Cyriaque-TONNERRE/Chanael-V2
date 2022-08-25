@@ -13,12 +13,12 @@ function lvl_up(id){
                     resolve(true);
                     if ((lvl + 1) % 5 === 0) {
                         if ((lvl + 1) % 10 === 0) {
-                            await user_db.add(id, 250 * (lvl + 1)); // palier 10
+                            await user_db.add(id + ".money", 250 * (lvl + 1)); // palier 10
                         } else {
-                            await user_db.add(id, 100 * (lvl + 1)); // palier 5
+                            await user_db.add(id + ".money", 100 * (lvl + 1)); // palier 5
                         }
                     } else {
-                        await user_db.add(id, 25 * (lvl + 1)); // palier unitaire
+                        await user_db.add(id + ".money", 25 * (lvl + 1)); // palier unitaire
                     }
                 });
             });
