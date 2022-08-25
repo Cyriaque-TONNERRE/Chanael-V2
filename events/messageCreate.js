@@ -11,6 +11,7 @@ const user_db = db.table("user");
 module.exports = {
     name: 'messageCreate',
     async execute(message) {
+        if (message.author.bot) return;
         if (!await user_db.has(message.author.id)) {
             register_user(message.author.id).then(async () => {
                 await user_db.set(message.author.id + ".money", randomInt(5, 16));
