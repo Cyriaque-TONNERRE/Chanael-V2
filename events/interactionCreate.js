@@ -163,7 +163,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 
         if (interaction.customId === `createChannel`) {
             if (await user_db.get(interaction.member.id + ".channelPerso") === undefined) {
-                interaction.channel.clone({name : "Salon de" + interaction.member.displayName }).then(async channel => {
+                interaction.channel.clone({name : "salon-de-" + interaction.member.displayName }).then(async channel => {
                     await channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
                         ViewChannel: true,
                         SendMessages: true,
