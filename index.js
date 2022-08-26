@@ -90,4 +90,6 @@ for (const file of cronFiles) {
 
 //----------------Partie-Ratio----------------//
 
+//console.log(client.guilds.cache.get("899641565629284384").channels.cache.get("899743315195465778"));
+
 client.login(token);

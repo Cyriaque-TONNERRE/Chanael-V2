@@ -21,7 +21,8 @@ function register_user(id){
                 annee: 0
             },
             ticket: undefined,
-            adminTicket: undefined
+            adminTicket: undefined,
+            channelPerso: undefined
         }).then(() => {
             resolve(true);
         });
