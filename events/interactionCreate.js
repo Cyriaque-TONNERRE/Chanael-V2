@@ -222,6 +222,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 } else {
                     interaction.reply({content: 'Vous n\'avez pas le droit de supprimer ce salon !', ephemeral: true});
                 }
+            } else {
+                interaction.reply({content: 'Vous n\'avez pas le droit de supprimer ce salon !', ephemeral: true});
             }
         }
     }
