@@ -4,6 +4,7 @@ const {mainRolesId, channelWelcomeId, roleMainId} = require("../config.json");
 const {randomInt, forEach} = require("mathjs");
 const {QuickDB} = require("quick.db");
 const {verificationpermission} = require("../fonctions/verificationpermission");
+const {register_user} = require("../fonctions/register_user");
 
 const db = new QuickDB();
 
@@ -162,53 +163,14 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         // Partie creation d'un salon temporaire
 
         if (interaction.customId === `createChannel`) {
-            if (await user_db.get(interaction.member.id + ".channelPerso") === undefined) {
-                interaction.channel.clone({name : "salon-de-" + interaction.member.displayName }).then(async channel => {
-                    await channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
-                        ViewChannel: true,
-                        SendMessages: true,
-                        EmbedLinks: true,
-                        AttachFiles: true,
-                        ReadMessageHistory: true
-                    }).then(() => {
-                        forEach(mainRolesId, async role => {
-                            await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
-                                ViewChannel: true,
-                                SendMessages: true,
-                                EmbedLinks: true,
-                                AttachFiles: true,
-                                ReadMessageHistory: true
-                            });
-                        })
-                        const deleteChannel = new ActionRowBuilder()
-                            .addComponents(
-                                new ButtonBuilder()
-                                    .setCustomId('deleteChannel')
-                                    .setLabel('Supprimer le salon')
-                                    .setStyle(ButtonStyle.Danger)
-                            );
-                        channel.send({content: `<@${interaction.member.id}>, ton salon a été créé ! Utilise le bouton ci-dessous pour le supprimer.`, components: [deleteChannel]});
-                    });
-                    const accessNewChannel = new ActionRowBuilder()
-                        .addComponents(
-                            new ButtonBuilder()
-                                .setLabel('Accéder au salon')
-                                .setStyle(ButtonStyle.Link)
-                                .setURL(channel.url),
-                        );
-                    await user_db.set(interaction.member.id + ".channelPerso", channel.id);
-                    interaction.reply({content: 'Vous avez créé un salon temporaire.',components: [accessNewChannel], ephemeral: true});
+            if (!await user_db.has(interaction.member.id)) {
+                register_user(interaction.member.id).then(() => {
+                    CreateChannel(interaction);
                 });
             } else {
-                const accessChannel = new ActionRowBuilder()
-                    .addComponents(
-                        new ButtonBuilder()
-                            .setLabel('Y accéder')
-                            .setStyle(ButtonStyle.Link)
-                            .setURL("https://discord.com/channels/899641565629284384/" + await user_db.get(interaction.member.id + ".channelPerso")),
-                    );
-                interaction.reply({content: 'Vous avez déjà un salon temporaire.',components: [accessChannel], ephemeral: true});
+                await CreateChannel(interaction);
             }
+
         }
 
         // Partie suppression d'un salon temporaire
@@ -226,5 +188,55 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 interaction.reply({content: 'Vous n\'avez pas le droit de supprimer ce salon !', ephemeral: true});
             }
         }
+    }
+}
+
+async function CreateChannel(interaction) {
+    if (await user_db.get(interaction.member.id + ".channelPerso") === undefined) {
+        interaction.channel.clone({name : "salon-de-" + interaction.member.displayName }).then(async channel => {
+            await channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
+                ViewChannel: true,
+                SendMessages: true,
+                EmbedLinks: true,
+                AttachFiles: true,
+                ReadMessageHistory: true
+            }).then(() => {
+                forEach(mainRolesId, async role => {
+                    await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
+                        ViewChannel: true,
+                        SendMessages: true,
+                        EmbedLinks: true,
+                        AttachFiles: true,
+                        ReadMessageHistory: true
+                    });
+                })
+                const deleteChannel = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('deleteChannel')
+                            .setLabel('Supprimer le salon')
+                            .setStyle(ButtonStyle.Danger)
+                    );
+                channel.send({content: `<@${interaction.member.id}>, ton salon a été créé ! Utilise le bouton ci-dessous pour le supprimer.`, components: [deleteChannel]});
+            });
+            const accessNewChannel = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setLabel('Accéder au salon')
+                        .setStyle(ButtonStyle.Link)
+                        .setURL(channel.url),
+                );
+            await user_db.set(interaction.member.id + ".channelPerso", channel.id);
+            interaction.reply({content: 'Vous avez créé un salon temporaire.',components: [accessNewChannel], ephemeral: true});
+        });
+    } else {
+        const accessChannel = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setLabel('Y accéder')
+                    .setStyle(ButtonStyle.Link)
+                    .setURL("https://discord.com/channels/899641565629284384/" + await user_db.get(interaction.member.id + ".channelPerso")),
+            );
+        interaction.reply({content: 'Vous avez déjà un salon temporaire.',components: [accessChannel], ephemeral: true});
     }
 }
