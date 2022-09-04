@@ -33,7 +33,7 @@ module.exports = {
    • D'être respectueux, agréable et tolérant à l'égard de toutes et tous.
    • D'avoir un pseudo qui respecte strictement la convention suivante : "VotrePrénom VotreNom".
    • D'avoir une photo de profil qui respecte la vie privée de chacun.
-   • D'envoyer les commandes dans le salon <#899645435566768209> mis à votre disposition.
+   • D'envoyer les commandes dans le salon <#1015941248638537818> mis à votre disposition.
    • De respecter les conditions d’utilisation de Discord : https://discord.com/terms
 
 <:ban:900013099250241606> Il vous est interdit :
