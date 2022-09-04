@@ -109,11 +109,20 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 if (!has_accepted) {
                     interaction.guild.roles.fetch(roleMainId).then(role => {
                         interaction.member.roles.add(role).then(() => {
-                            const bienvenue = ["Bienvenue", "Welcome", "Willkommen", "Bienvenidos", "Bem-vindo", "Witam", "Dobrodošli"]
+                            const bienvenue = [
+                                "J’aperçois ${interaction.member.displayName} qui nous rejoins !",
+                                "Ne paniquez pas, restez calme … c’est juste ${interaction.member.displayName} qui nous rejoins !",
+                                ":bruit_de_fanfare: ${interaction.member.displayName} a rejoins la bande !",
+                                "Hissez la grand'voile, ${interaction.member.displayName} est monté à bord !",
+                                "Si le pain d’épice fond, ${interaction.member.displayName} n’est pas loin !",
+                                "La légende disait vrai … ${interaction.member.displayName} a remué ciel et terre pour venir parmi les siens",
+                                "Est-ce un mirage ? Non j’ai bien l’impression que ${interaction.member.displayName} viens d’entrer ici !",
+                                "Et c’est ${interaction.member.displayName} qui entre sur le dance floor !"
+                            ]
                             const embed_bienvenue = new EmbedBuilder()
                                 .setColor('#cc532e')
                                 .setTitle('Ho ! Un nouveau membre !')
-                                .setDescription(`${bienvenue[randomInt(0, 7)]} à ${interaction.member.displayName} sur le serveur de Promo 67,5! :beers:\n`)
+                                .setDescription(`${bienvenue[randomInt(0, 8)]} Bienvenue sur le serveur de Promo 67 ! :beers:\n`)
                                 .setImage('http://cyriaque.tonnerre.free.fr/joinimg.png')
                             interaction.guild.channels.fetch(channelWelcomeId).then(channel => {
                                 channel.send({
