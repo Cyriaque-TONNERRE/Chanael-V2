@@ -100,7 +100,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 
         if (interaction.customId === `accept_reglement`) {
             if (interaction.channel.topic.slice(15) === interaction.member.id) {
-                if (interaction.member.roles.cache.has(roleTempId)) {
+                if (!interaction.member.roles.cache.has(roleTempId)) {
                     await interaction.member.roles.add(roleTempId);
                     interaction.reply({content: 'Vous avez accepté le règlement.', ephemeral: true});
                     const chooseRoleButton = new ActionRowBuilder().addComponents(
@@ -125,7 +125,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                             .setLabel('Autre')
                             .setStyle(ButtonStyle.Danger),
                     );
-                    interaction.reply({content: 'Choisissez votre rôle !', components: [chooseRoleButton]});
+                    interaction.channel.send({content: 'Choisissez votre rôle !', components: [chooseRoleButton]});
                     if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                         const bienvenue = [
                             `J’aperçois ${interaction.member.displayName} qui nous rejoins !`,
@@ -147,7 +147,6 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                                 content: `<@${interaction.member.user.id}>`,
                                 embeds: [embed_bienvenue]
                             }).then(() => {
-                                interaction.member.roles.add(roleMainId);
                                 setTimeout(() => {
                                     interaction.channel.delete();
                                 }, 5000);
