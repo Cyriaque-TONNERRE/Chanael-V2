@@ -1,6 +1,6 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const {fcollector} = require("../fonctions/new_user");
-const {mainRolesId, channelWelcomeId, roleMainId} = require("../config.json");
+const {mainRolesId, channelWelcomeId, roleTempId, newMemberRolesId} = require("../config.json");
 const {randomInt, forEach} = require("mathjs");
 const {QuickDB} = require("quick.db");
 const {verificationpermission} = require("../fonctions/verificationpermission");
@@ -100,40 +100,63 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 
         if (interaction.customId === `accept_reglement`) {
             if (interaction.channel.topic.slice(15) === interaction.member.id) {
-                if (!interaction.member.roles.cache.hasAny(...mainRolesId)) {
-                    interaction.guild.roles.fetch(roleMainId).then(role => {
-                        interaction.member.roles.add(role).then(() => {
-                            const bienvenue = [
-                                `J’aperçois ${interaction.member.displayName} qui nous rejoins !`,
-                                `Ne paniquez pas, restez calme … c’est juste ${interaction.member.displayName} qui nous rejoins !`,
-                                `:bruit_de_fanfare: ${interaction.member.displayName} a rejoins la bande !`,
-                                `Hissez la grand'voile, ${interaction.member.displayName} est monté à bord !`,
-                                `Si le pain d’épice fond, ${interaction.member.displayName} n’est pas loin !`,
-                                `La légende disait vrai … ${interaction.member.displayName} a remué ciel et terre pour venir parmi les siens !`,
-                                `Est-ce un mirage ? Non j’ai bien l’impression que ${interaction.member.displayName} viens d’entrer ici !`,
-                                `Et c’est ${interaction.member.displayName} qui entre sur le dance floor !`
-                            ]
-                            const embed_bienvenue = new EmbedBuilder()
-                                .setColor('#cc532e')
-                                .setTitle('Ho ! Un nouveau membre !')
-                                .setDescription(`${bienvenue[randomInt(0, 8)]}\nBienvenue sur le serveur de Promo 67 ! :beers:\n`)
-                                .setImage('http://cyriaque.tonnerre.free.fr/joinimg.png')
-                            interaction.guild.channels.fetch(channelWelcomeId).then(channel => {
-                                channel.send({
-                                    content: `<@${interaction.member.user.id}>`,
-                                    embeds: [embed_bienvenue],
-                                    ephemeral: true
-                                }).then(() => {
-                                    interaction.member.roles.add(roleMainId);
-                                    setTimeout(() => {
-                                        interaction.channel.delete();
-                                    }, 5000);
-                                });
+                if (interaction.member.roles.cache.has(roleTempId)) {
+                    await interaction.member.roles.add(roleTempId);
+                    interaction.reply({content: 'Vous avez accepté le règlement.', ephemeral: true});
+                    const chooseRoleButton = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('cir2')
+                            .setLabel('CIR 2')
+                            .setStyle(ButtonStyle.Primary),
+                        new ButtonBuilder()
+                            .setCustomId('cnb2')
+                            .setLabel('CNB 2')
+                            .setStyle(ButtonStyle.Success),
+                        new ButtonBuilder()
+                            .setCustomId('cir1')
+                            .setLabel('CIR 1')
+                            .setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder()
+                            .setCustomId('cnb1')
+                            .setLabel('CNB 1')
+                            .setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder()
+                            .setCustomId('autre')
+                            .setLabel('Autre')
+                            .setStyle(ButtonStyle.Danger),
+                    );
+                    interaction.reply({content: 'Choisissez votre rôle !', components: [chooseRoleButton]});
+                    if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                        const bienvenue = [
+                            `J’aperçois ${interaction.member.displayName} qui nous rejoins !`,
+                            `Ne paniquez pas, restez calme … c’est juste ${interaction.member.displayName} qui nous rejoins !`,
+                            `:bruit_de_fanfare: ${interaction.member.displayName} a rejoins la bande !`,
+                            `Hissez la grand'voile, ${interaction.member.displayName} est monté à bord !`,
+                            `Si le pain d’épice fond, ${interaction.member.displayName} n’est pas loin !`,
+                            `La légende disait vrai … ${interaction.member.displayName} a remué ciel et terre pour venir parmi les siens !`,
+                            `Est-ce un mirage ? Non j’ai bien l’impression que ${interaction.member.displayName} viens d’entrer ici !`,
+                            `Et c’est ${interaction.member.displayName} qui entre sur le dance floor !`
+                        ]
+                        const embed_bienvenue = new EmbedBuilder()
+                            .setColor('#cc532e')
+                            .setTitle('Ho ! Un nouveau membre !')
+                            .setDescription(`${bienvenue[randomInt(0, 8)]}\nBienvenue sur le serveur de Promo 67 ! :beers:\n`)
+                            .setImage('http://cyriaque.tonnerre.free.fr/joinimg.png')
+                        interaction.guild.channels.fetch(channelWelcomeId).then(channel => {
+                            channel.send({
+                                content: `<@${interaction.member.user.id}>`,
+                                embeds: [embed_bienvenue]
+                            }).then(() => {
+                                interaction.member.roles.add(roleMainId);
+                                setTimeout(() => {
+                                    interaction.channel.delete();
+                                }, 5000);
                             });
                         });
-                    });
+                    }
+                } else {
+                    interaction.reply({content: 'Vous avez déjà accepté le règlement.', ephemeral: true});
                 }
-                interaction.reply({content: 'Vous avez accepté le règlement.', ephemeral: true});
             } else {
                 interaction.reply({content: 'Vous n\'avez pas le droit d\'interagir avec ce channel !', ephemeral: true});
             }
@@ -195,7 +218,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         // Partie changement de ROLE rentré 2022
 
         if (interaction.customId === `cir2`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add("1015324009535131779").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CIR2 !', ephemeral: true});
@@ -205,7 +228,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
             }
         }
         if (interaction.customId === `cnb2`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add("1015326475592933497").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CNB2 !', ephemeral: true});
@@ -215,7 +238,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
             }
         }
         if (interaction.customId === `cir1`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add("1015586006134706186").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CIR1 !', ephemeral: true});
@@ -225,7 +248,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
             }
         }
         if (interaction.customId === `cnb1`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add("1015586200398082068").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CNB1 !', ephemeral: true});
@@ -235,7 +258,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
             }
         }
         if (interaction.customId === `autre`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 const autreButton = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
@@ -264,7 +287,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
 
         if (interaction.customId === `cpg1`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add("1015939502038069328").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CPG 1 !', ephemeral: true});
@@ -275,7 +298,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
 
         if (interaction.customId === `cpg2`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add("1015939082582495263").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CPG 2 !', ephemeral: true});
@@ -286,7 +309,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
 
         if (interaction.customId === `autre_isen`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.remove(mainRolesId).then(() => {
                     interaction.member.roles.add("900811941080096779");
                     interaction.reply({content: 'Vous avez bien été ajouté au role Vieille Brindille !', ephemeral: true});
@@ -297,7 +320,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
 
         if (interaction.customId === `externe`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add("1015954681874350090").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role Parti Trop Tôt !', ephemeral: true});
@@ -308,7 +331,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
 
         if (interaction.customId === `prof`) {
-            if (interaction.member.roles.cache.hasAny(...mainRolesId)) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 interaction.guild.channels.cache.get('948552469066178560').send(`||@everyone|| ALERT PROF : <@${interaction.member.id}> a voulu se connecter en tant que Prof !`);
                 interaction.reply({content: 'Votre demande a bien été prise en compte, nous vous re-contacterons d\'ici peu!', ephemeral: true});
                 setTimeout(() => {

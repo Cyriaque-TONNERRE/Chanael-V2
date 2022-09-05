@@ -24,7 +24,7 @@ module.exports = {
                 await user_db.add(message.author.id + ".money", randomInt(5,16));
                 await user_db.set(message.author.id + ".lastMessage", new Date().getTime());
                 user_db.add(message.author.id + ".xp", randomInt(3,12)).then(() => {
-                    lvl_up(message.author.id).then((isUP) => {
+                    lvl_up(message.guild, message.author.id).then((isUP) => {
                         if (isUP) {
                             let lvlupEmbed = new EmbedBuilder()
                                 .setColor('#0162b0')
