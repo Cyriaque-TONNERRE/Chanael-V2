@@ -116,7 +116,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                             const embed_bienvenue = new EmbedBuilder()
                                 .setColor('#cc532e')
                                 .setTitle('Ho ! Un nouveau membre !')
-                                .setDescription(`${bienvenue[randomInt(0, 8)]} \n Bienvenue sur le serveur de Promo 67 ! :beers:\n`)
+                                .setDescription(`${bienvenue[randomInt(0, 8)]}\nBienvenue sur le serveur de Promo 67 ! :beers:\n`)
                                 .setImage('http://cyriaque.tonnerre.free.fr/joinimg.png')
                             interaction.guild.channels.fetch(channelWelcomeId).then(channel => {
                                 channel.send({
