@@ -217,10 +217,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.add("1015324009535131779").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CIR2 !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -232,10 +234,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.add("1015326475592933497").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CNB2 !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -247,10 +251,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.add("1015586006134706186").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CIR1 !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -262,10 +268,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.add("1015586200398082068").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CNB1 !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -306,10 +314,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.add("1015939502038069328").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CPG 1 !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -322,10 +332,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.add("1015939082582495263").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CPG 2 !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -338,10 +350,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.remove(mainRolesId).then(() => {
                     interaction.member.roles.add("900811941080096779");
                     interaction.reply({content: 'Vous avez bien été ajouté au role Vieille Brindille !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -354,10 +368,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 await interaction.member.roles.add("1015954681874350090").then(() => {
                     interaction.member.roles.remove(mainRolesId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role Parti Trop Tôt !', ephemeral: true});
-                    if (interaction.channel.topic.startsWith("enregistrement-")) {
-                        setTimeout(() => {
-                            interaction.channel.delete();
-                        }, 5000);
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
                     }
                 });
             } else {
@@ -371,7 +387,11 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 interaction.reply({content: 'Votre demande a bien été prise en compte, nous vous re-contacterons d\'ici peu!', ephemeral: true});
                 setTimeout(() => {
                     interaction.member.kick({reason:`Votre demande a bien été prise en compte, nous vous re-contacterons d'ici peu!`});
-                    interaction.channel.delete();
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            interaction.channel.delete();
+                        }
+                    }
                 }, 10000);
             } else {
                 interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
