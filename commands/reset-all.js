@@ -24,7 +24,9 @@ module.exports = {
                         user_db.set(elem.id + ".xp", 0)
                         user_db.set(elem.id + ".level", 0)
                     })
-                })
+                }).then(() => {
+                    interaction.reply({content: "Reset effectué !", ephemeral: true})
+                });
             } else {
                 interaction.reply({content: "Mot de passe incorrect !", ephemeral: true})
             }
