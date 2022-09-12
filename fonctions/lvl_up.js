@@ -8,7 +8,7 @@ function lvl_up(guild, id){
     return new Promise( async (resolve) => {
         let xp = await user_db.get(id + ".xp");
         let lvl = parseInt(await user_db.get(id + ".level"));
-        if (xp >= round((3.5 * lvl + 250) * (pow(1.05, lvl)))) {
+        if (xp >= round((3.5 * lvl + 500) * (pow(1.02, lvl)))) {
             user_db.set(id + ".xp", xp - round((3.5 * lvl + 150) * (pow(1.05, lvl)))).then(() => {
                 user_db.add(id + ".level", 1).then(async () => {
                     resolve(true);
