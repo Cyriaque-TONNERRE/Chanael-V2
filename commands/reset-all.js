@@ -20,6 +20,7 @@ module.exports = {
             if (interaction.options.getString('mdp') === resetAllPassword) {
                 user_db.all().then((list) => {
                     forEach(list, (elem) => {
+                        console.log(elem.id);
                         user_db.set(elem.id + ".money", 0)
                         user_db.set(elem.id + ".xp", 0)
                         user_db.set(elem.id + ".level", 0)
