@@ -12,7 +12,7 @@ module.exports = {
     name: 'messageCreate',
     async execute(message) {
         if (message.author.bot) return;
-        if (!categoryNoXpNoMoney.hasAny(...message.channel.parentId)){
+        if (!categoryNoXpNoMoney.find(id => id === message.channel.parentId)){
             if (!await user_db.has(message.author.id)) {
                 register_user(message.author.id).then(async () => {
                     await user_db.set(message.author.id + ".money", randomInt(5, 16));
