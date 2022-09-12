@@ -19,11 +19,10 @@ module.exports = {
         if (verificationpermission(interaction)) {
             if (interaction.options.getString('mdp') === resetAllPassword) {
                 user_db.all().then((list) => {
-                    forEach(list, (elem) => {
-                        console.log(elem.id);
-                        user_db.set(elem.id + ".money", 0)
-                        user_db.set(elem.id + ".xp", 0)
-                        user_db.set(elem.id + ".level", 0)
+                    forEach(list, async(elem) => {
+                        await user_db.set(elem.id + ".money", 0)
+                        await user_db.set(elem.id + ".xp", 0)
+                        await user_db.set(elem.id + ".level", 0)
                     })
                 }).then(() => {
                     interaction.reply({content: "Reset effectué !", ephemeral: true})
