@@ -47,18 +47,18 @@ module.exports = {
                 const duration = interaction.options.getInteger('durée');
                 const unite = interaction.options.getString('unité');
                 const reason = interaction.options.getString('raison');
-                let timeToMute = duration.value;
+                let timeToMute = duration;
                 let mute_embeds = new EmbedBuilder();
-                if (unite.value === 'Minutes') {
+                if (unite === 'Minutes') {
                     timeToMute = timeToMute * 60 * 1000;
                 }
-                if (unite.value === 'Heures') {
+                if (unite === 'Heures') {
                     timeToMute = timeToMute * 60 * 60 * 1000;
                 }
-                if (unite.value === 'Jours') {
+                if (unite === 'Jours') {
                     timeToMute = timeToMute * 24 * 60 * 60 * 1000;
                 }
-                if (unite.value === 'Semaines') {
+                if (unite === 'Semaines') {
                     timeToMute = timeToMute * 7 * 24 * 60 * 60 * 1000;
                 }
                 if (timeToMute > 2419200000) {
