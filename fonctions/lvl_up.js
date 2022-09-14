@@ -22,18 +22,18 @@ function lvl_up(guild, id){
                         await user_db.add(id + ".money", 25 * (lvl + 1)); // palier unitaire
                     }
                     guild.members.fetch(id).then((member) => {
-                        if (lvl === 10) {
+                        if (lvl + 1 === 10) {
                             member.roles.add(lvlRolesId[0]);
-                        } else if (lvl === 20) {
+                        } else if (lvl + 1 === 20) {
                             member.roles.remove(lvlRolesId[0]);
                             member.roles.add(lvlRolesId[1]);
-                        } else if (lvl === 30) {
+                        } else if (lvl + 1 === 30) {
                             member.roles.remove(lvlRolesId[1]);
                             member.roles.add(lvlRolesId[2]);
-                        } else if (lvl === 40) {
+                        } else if (lvl + 1 === 40) {
                             member.roles.remove(lvlRolesId[2]);
                             member.roles.add(lvlRolesId[3]);
-                        } else if (lvl === 50) {
+                        } else if (lvl + 1 === 50) {
                             member.roles.remove(lvlRolesId[3]);
                             member.roles.add(lvlRolesId[4]);
                         }
