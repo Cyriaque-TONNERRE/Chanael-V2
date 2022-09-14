@@ -33,7 +33,7 @@ module.exports = {
             const user = interaction.options.getUser('user');
             await user_db.add(user.id + `.money`, montant);
             await user_db.sub(interaction.user.id + `.money`, montant);
-            interaction.reply({content: `Vous avez donné ${montant} <a:octet:1010177758250405888> à ${user.username} !`, ephemeral: true});
+            interaction.reply({content: `Vous avez donné ${montant} <a:octet:1010177758250405888> à ${user.username} !`/*, ephemeral: true*/});
         }
     }
 };
