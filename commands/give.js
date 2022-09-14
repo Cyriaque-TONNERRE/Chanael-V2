@@ -30,10 +30,10 @@ module.exports = {
         if (montant > money) {
             interaction.reply({content: `Vous n'avez pas assez de <a:octet:1010177758250405888> !`, ephemeral: true});
         } else {
-            const user = interaction.options.getUser('user');
-            await user_db.add(user.id + `.money`, montant);
+            const member = interaction.guild.members.cache.get(interaction.options.getUser('user').id);
+            await user_db.add(member.id + `.money`, montant);
             await user_db.sub(interaction.user.id + `.money`, montant);
-            interaction.reply({content: `Vous avez donné ${montant} <a:octet:1010177758250405888> à ${user.username} !`/*, ephemeral: true*/});
+            interaction.reply({content: `Vous avez donné ${montant} <a:octet:1010177758250405888> à ${member.displayName} !`/*, ephemeral: true*/});
         }
     }
 };
