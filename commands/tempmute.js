@@ -61,6 +61,9 @@ module.exports = {
                 if (unite === 'Semaines') {
                     timeToMute = timeToMute * 7 * 24 * 60 * 60 * 1000;
                 }
+                if (user.communicationDisabledUntilTimestamp === null) {
+                    timeToMute += user.communicationDisabledUntilTimestamp - Date.now();
+                }
                 if (timeToMute > 2419200000) {
                     timeToMute = 2419200000;
                     user.timeout(timeToMute, reason);
