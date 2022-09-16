@@ -27,7 +27,7 @@ module.exports = {
             })
             const topLevelEmbed = new EmbedBuilder()
                 .setColor('#a21be3')
-                .setTitle(`<a:octet:1010177758250405888> Les 10 personnes au plus haut niveau sont : <a:octet:1010177758250405888>`)
+                .setTitle(`<:hat:927602853319675975>  Les 10 personnes au plus haut niveau sont : <:hat:927602853319675975> `)
                 .setTimestamp()
             //trie orderTab selon le level puis le xp
             orderTab.sort((a, b) => {
