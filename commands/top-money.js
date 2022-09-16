@@ -14,13 +14,15 @@ module.exports = {
         let orderTab = [];
         user_db.all().then(async (list) => {
             forEach(list, (user) => {
-                if (user.value.money !== 0) {
-                    const listmember = {
-                        id: user.id,
-                        money: user.value.money,
-                    }
-                    orderTab.push(listmember);
+                if (interaction.guild.members.cache.get(user.id) !== undefined) {
+                    if (user.value.money !== 0) {
+                        const listmember = {
+                            id: user.id,
+                            money: user.value.money,
+                        }
+                        orderTab.push(listmember);
 
+                    }
                 }
             });
             const topMoneyEmbed = new EmbedBuilder()

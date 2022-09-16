@@ -14,16 +14,17 @@ module.exports = {
         let orderTab = [];
         user_db.all().then(async (list) => {
             forEach(list, (user) => {
-                if (user.value.level !== 0 && user.value.xp !== 0) {
-                    const listmember = {
-                        id: user.id,
-                        level: user.value.level,
-                        xp: user.value.xp
+                if (interaction.guild.members.cache.get(user.id) !== undefined) {
+                    if (user.value.level !== 0 && user.value.xp !== 0) {
+                        const listmember = {
+                            id: user.id,
+                            level: user.value.level,
+                            xp: user.value.xp
+                        }
+                        orderTab.push(listmember);
                     }
-                    orderTab.push(listmember);
-
                 }
-            });
+            })
             const topLevelEmbed = new EmbedBuilder()
                 .setColor('#a21be3')
                 .setTitle(`<a:octet:1010177758250405888> Les 10 personnes au plus haut niveau sont : <a:octet:1010177758250405888>`)
