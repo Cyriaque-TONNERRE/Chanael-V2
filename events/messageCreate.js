@@ -3,7 +3,7 @@ const {register_user} = require("../fonctions/register_user");
 const {randomInt} = require("mathjs");
 const {lvl_up} = require("../fonctions/lvl_up");
 const {EmbedBuilder} = require("discord.js");
-const {channelBotId, clientId, categoryNoXpNoMoney} = require("../config.json");
+const {channelBotId, clientId, categoryNoXpNoMoney, channelNoXpNoMoney} = require("../config.json");
 const db = new QuickDB();
 
 const user_db = db.table("user");
@@ -12,7 +12,7 @@ module.exports = {
     name: 'messageCreate',
     async execute(message) {
         if (message.author.bot) return;
-        if (!categoryNoXpNoMoney.find(id => id === message.channel.parentId)){
+        if (!categoryNoXpNoMoney.find(id => id === message.channel.parentId) && !channelNoXpNoMoney.find(id => id === message.channel.id)) {
             if (!await user_db.has(message.author.id)) {
                 register_user(message.author.id).then(async () => {
                     await user_db.set(message.author.id + ".money", randomInt(5, 16));
