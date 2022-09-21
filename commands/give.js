@@ -1,5 +1,6 @@
 const { SlashCommandBuilder} = require('discord.js');
 const {QuickDB} = require("quick.db");
+const {register_user} = require("../fonctions/register_user");
 const db = new QuickDB();
 
 const user_db = db.table("user");
@@ -31,9 +32,19 @@ module.exports = {
             interaction.reply({content: `Vous n'avez pas assez de <a:octet:1010177758250405888> !`, ephemeral: true});
         } else {
             const member = interaction.guild.members.cache.get(interaction.options.getUser('user').id);
-            await user_db.add(member.id + `.money`, montant);
-            await user_db.sub(interaction.user.id + `.money`, montant);
-            interaction.reply({content: `Vous avez donné ${montant} <a:octet:1010177758250405888> à ${member.displayName} !`/*, ephemeral: true*/});
+            if (await user_db.has(member.id)) {
+                await user_db.add(member.id + `.money`, montant);
+                await user_db.sub(interaction.user.id + `.money`, montant);
+                interaction.reply({content: `Vous avez donné ${montant} <a:octet:1010177758250405888> à ${member.displayName} !`/*, ephemeral: true*/});
+            } else {
+                register_user(member.id).then(async () => {
+                    await user_db.add(member.id + `.money`, montant);
+                    await user_db.sub(interaction.user.id + `.money`, montant);
+                    interaction.reply({content: `Vous avez donné ${montant} <a:octet:1010177758250405888> à ${member.displayName} !`/*, ephemeral: true*/});
+                })
+            }
+
+
         }
     }
 };
