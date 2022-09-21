@@ -11,7 +11,7 @@ const user_db = db.table("user");
 module.exports = {
     name: 'messageCreate',
     async execute(message) {
-        if (message.author.bot || message.author.roles.cache.hasAny(...roleNoXpNoMoney)) return;
+        if (message.author.bot || message.guild.members.cache.get(message.author.id).roles.cache.hasAny(...roleNoXpNoMoney)) return;
         if (!categoryNoXpNoMoney.find(id => id === message.channel.parentId) && !channelNoXpNoMoney.find(id => id === message.channel.id)) {
             if (!await user_db.has(message.author.id)) {
                 register_user(message.author.id).then(async () => {
