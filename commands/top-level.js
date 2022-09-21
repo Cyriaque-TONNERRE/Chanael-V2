@@ -14,8 +14,8 @@ module.exports = {
         let orderTab = [];
         user_db.all().then(async (list) => {
             forEach(list, (user) => {
-                if (interaction.guild.members.cache.get(user.id) !== undefined || !interaction.guild.members.cache.get(user.id).user.bot) {
-                    if (user.value.level !== 0 && user.value.xp !== 0) {
+                if (interaction.guild.members.cache.get(user.id) !== undefined) {
+                    if (user.value.level !== 0 && user.value.xp !== 0 || !interaction.guild.members.cache.get(user.id).user.bot) {
                         const listmember = {
                             id: user.id,
                             level: user.value.level,
