@@ -5,7 +5,12 @@ const { Client, GatewayIntentBits, Collection} = require('discord.js');
 const { token } = require('./config.json');
 const {register_user} = require('./fonctions/register_user.js');
 
-const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent]});
+const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent], autoReconnect: true});
+
+// Enregistrement du client.warn dans un fichier
+client.warn = function (message) {
+    fs.appendFileSync(path.join(__dirname, 'warn.log'), `${new Date().toLocaleString()} | ${message}\n`);
+}
 
 //----------------Partie-Base-de-données-----------//
 
