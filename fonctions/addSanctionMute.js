@@ -9,17 +9,11 @@ async function addSanction(member, reason, modo, channel, link) {
     let sanction;
     if (link === undefined) {
         sanction = {
-            reason: reason,
-            timestamp: Date.now(),
-            modo: modo.id,
-            link: null
+            reason: reason, timestamp: Date.now(), modo: modo.id, link: null
         }
     } else {
         sanction = {
-            reason: reason,
-            timestamp: Date.now(),
-            modo: modo.id,
-            link: link,
+            reason: reason, timestamp: Date.now(), modo: modo.id, link: link,
         }
     }
     if (!await user_db.has(member.id)) {
@@ -41,34 +35,24 @@ async function addSanction(member, reason, modo, channel, link) {
 }
 
 function automute(member, channel) {
-    user_db.get(member.id + ".nbSanction").then( nb_sanction => {
-        if ((nb_sanction) >= 10) {
-            if (member.communicationDisabledUntilTimestamp === null) {
-                member.timeout(7 * 24 * 60 * 60 * 1000 +  member.communicationDisabledUntilTimestamp - Date.now(), "Auto-Sanction");
-            } else {
-                member.timeout(7 * 24 * 60 * 60 * 1000, "Auto-Sanction");
+    user_db.get(member.id + ".nbSanction").then(nb_sanction => {
+        let timesupp = 0;
+        if (member.communicationDisabledUntilTimestamp !== null) {
+            if (member.communicationDisabledUntilTimestamp > new Date().getTime()) {
+                timesupp = member.communicationDisabledUntilTimestamp - new Date().getTime();
             }
+        }
+        if ((nb_sanction) >= 10) {
+            member.timeout(7 * 24 * 60 * 60 * 1000 + timesupp, "Auto-Sanction");
             channel.send(`${member.displayName} a été réduit au silence 7 jours pour avoir commis ${nb_sanction} infractions au règlement.`);
         } else if ((nb_sanction) === 7) {
-            if (member.communicationDisabledUntilTimestamp === null) {
-                member.timeout(3 * 24 * 60 * 60 * 1000 +  member.communicationDisabledUntilTimestamp - Date.now(), "Auto-Sanction");
-            } else {
-                member.timeout(3 * 24 * 60 * 60 * 1000, "Auto-Sanction");
-            }
+            member.timeout(3 * 24 * 60 * 60 * 1000 + timesupp, "Auto-Sanction");
             channel.send(`${member.displayName} a été réduit au silence 3 jours pour avoir commis 7 infractions au règlement.`);
         } else if ((nb_sanction) === 5) {
-            if (member.communicationDisabledUntilTimestamp === null) {
-                member.timeout(24 * 60 * 60 * 1000 +  member.communicationDisabledUntilTimestamp - Date.now(), "Auto-Sanction");
-            } else {
-                member.timeout(24 * 60 * 60 * 1000, "Auto-Sanction");
-            }
+            member.timeout(24 * 60 * 60 * 1000 + timesupp, "Auto-Sanction");
             channel.send(`${member.displayName} a été réduit au silence 1 jours pour avoir commis 5 infractions au règlement.`);
         } else if ((nb_sanction) === 3) {
-            if (member.communicationDisabledUntilTimestamp === null) {
-                member.timeout(60 * 60 * 1000 +  member.communicationDisabledUntilTimestamp - Date.now(), "Auto-Sanction");
-            } else {
-                member.timeout(60 * 60 * 1000, "Auto-Sanction");
-            }
+            member.timeout(60 * 60 * 1000 + timesupp, "Auto-Sanction");
             channel.send(`${member.displayName} a été réduit au silence 1 heure pour avoir commis 3 infractions au règlement.`);
         } else {
             channel.send(`${member.displayName} a commis ${nb_sanction} infractions au règlement.`);
