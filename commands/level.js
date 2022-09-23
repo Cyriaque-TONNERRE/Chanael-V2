@@ -19,12 +19,12 @@ module.exports = {
         if (interaction.options.getUser('user') === null) {
             const lvl = await user_db.get(interaction.user.id + `.level`);
             const xp = await user_db.get(interaction.user.id + `.xp`);
-            interaction.reply({content: `Vous êtes ${lvl} ! (${xp}/${round((3.5 * lvl + 500) * (pow(1.02, lvl)))})`, ephemeral: true});
+            interaction.reply({content: `Vous êtes niveau ${lvl} ! (${xp}/${round((3.5 * lvl + 500) * (pow(1.02, lvl)))} xp)`, ephemeral: true});
         } else {
             const member = interaction.guild.members.cache.get(interaction.options.getUser('user').id);
             const lvl = await user_db.get(member.id + `.level`);
             const xp = await user_db.get(member.id + `.xp`);
-            interaction.reply({content: `${member.displayName} est ${lvl} ! (${xp}/${round((3.5 * lvl + 500) * (pow(1.02, lvl)))})`, ephemeral: true});
+            interaction.reply({content: `${member.displayName} est niveau ${lvl} ! (${xp}/${round((3.5 * lvl + 500) * (pow(1.02, lvl)))} xp)`, ephemeral: true});
         }
     }
 };
