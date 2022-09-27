@@ -4,7 +4,7 @@ const {randomInt} = require("mathjs");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('medhi-mute')
+        .setName('mehdi-mute')
         .setDescription('Mute un utilisateur pendant un certain temps.')
         .addUserOption(option =>
             option.setName('pseudo')
@@ -33,7 +33,7 @@ module.exports = {
                         timeToMute += user.communicationDisabledUntilTimestamp - Date.now();
                     }
                 }
-                let medhi_mute_embeds = new EmbedBuilder();
+                let mehdi_mute_embeds = new EmbedBuilder();
                 user.timeout(timeToMute, reason);
                 medhi_mute_embeds
                     .setColor('#da461a')
@@ -45,11 +45,11 @@ module.exports = {
                     })
                     .setTimestamp()
                     .setFooter({text: 'Medhi', iconURL: interaction.guild.members.cache.get("422807797525250079").displayAvatarURL()});
-                interaction.reply({embeds: [medhi_mute_embeds]});
+                interaction.reply({embeds: [mehdi_mute_embeds]});
             }
         } else {
             interaction.reply({
-                content: `Vous n'êtes pas Medhi, vous ne pouvez pas utiliser cette commande.`,
+                content: `Vous n'êtes pas Mehdi, vous ne pouvez pas utiliser cette commande.`,
                 ephemeral: true
             });
         }
