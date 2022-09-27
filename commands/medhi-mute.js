@@ -18,7 +18,7 @@ module.exports = {
         ),
 
     execute(interaction) {
-        if(interaction.member.id !== "422807797525250079") {
+        if(interaction.member.id === "422807797525250079") {
             const user = interaction.guild.members.cache.get(interaction.options.getUser('pseudo').id);
             if (user.roles.cache.find(role => role.id === roleModoId) || user.roles.cache.find(role => role.id === roleAdminId) || user.permissions.has(PermissionFlagsBits.Administrator)) {
                 interaction.reply({
