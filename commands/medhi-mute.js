@@ -35,7 +35,7 @@ module.exports = {
                 }
                 let mehdi_mute_embeds = new EmbedBuilder();
                 user.timeout(timeToMute, reason);
-                medhi_mute_embeds
+                mehdi_mute_embeds
                     .setColor('#da461a')
                     .setTitle(`${user.displayName} à été mute par ${interaction.member.displayName}`)
                     .setThumbnail(user.displayAvatarURL())
