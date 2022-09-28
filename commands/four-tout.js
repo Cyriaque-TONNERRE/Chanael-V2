@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, Client, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder, TextInputBuilder, TextInputStyle} = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, Client, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder, TextInputBuilder, TextInputStyle,SelectMenuBuilder} = require('discord.js');
 const {randomInt, forEach} = require("mathjs");
 const {guildId, channelBDayId} = require("../config.json");
 const {QuickDB} = require("quick.db");

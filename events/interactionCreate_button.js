@@ -1,6 +1,6 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const {fcollector} = require("../fonctions/new_user");
-const {mainRolesId, channelWelcomeId, roleTempId, newMemberRolesId} = require("../config.json");
+const {channelWelcomeId, roleTempId, newMemberRolesId, tiersRolesId, groupeRoles, tempRoleId} = require("../config.json");
 const {randomInt, forEach} = require("mathjs");
 const {QuickDB} = require("quick.db");
 const {verificationpermission} = require("../fonctions/verificationpermission");
@@ -210,12 +210,12 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
             }
         }
 
-        // Partie changement de ROLE rentré 2022
+        // Partie choix role Arrivée
 
         if (interaction.customId === `cir2`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add("1015324009535131779").then(() => {
-                    interaction.member.roles.remove(mainRolesId);
+                await interaction.member.roles.add(newMemberRolesId[0]).then(() => {
+                    interaction.member.roles.remove(roleTempId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CIR2 !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -231,8 +231,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
         if (interaction.customId === `cnb2`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add("1015326475592933497").then(() => {
-                    interaction.member.roles.remove(mainRolesId);
+                await interaction.member.roles.add(newMemberRolesId[1]).then(() => {
+                    interaction.member.roles.remove(roleTempId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CNB2 !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -248,8 +248,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
         if (interaction.customId === `cir1`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add("1015586006134706186").then(() => {
-                    interaction.member.roles.remove(mainRolesId);
+                await interaction.member.roles.add(newMemberRolesId[3]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CIR1 !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -265,8 +265,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
         if (interaction.customId === `cnb1`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add("1015586200398082068").then(() => {
-                    interaction.member.roles.remove(mainRolesId);
+                await interaction.member.roles.add(newMemberRolesId[4]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CNB1 !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -311,8 +311,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 
         if (interaction.customId === `cpg1`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add("1015939502038069328").then(() => {
-                    interaction.member.roles.remove(mainRolesId);
+                await interaction.member.roles.add(newMemberRolesId[5]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CPG 1 !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -329,8 +329,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 
         if (interaction.customId === `cpg2`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add("1015939082582495263").then(() => {
-                    interaction.member.roles.remove(mainRolesId);
+                await interaction.member.roles.add(newMemberRolesId[2]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role CPG 2 !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -347,8 +347,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 
         if (interaction.customId === `autre_isen`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.remove(mainRolesId).then(() => {
-                    interaction.member.roles.add("900811941080096779");
+                await interaction.member.roles.add(newMemberRolesId[7]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role Vieille Brindille !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -365,8 +365,8 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 
         if (interaction.customId === `externe`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add("1015954681874350090").then(() => {
-                    interaction.member.roles.remove(mainRolesId);
+                await interaction.member.roles.add(newMemberRolesId[6]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
                     interaction.reply({content: 'Vous avez bien été ajouté au role Parti Trop Tôt !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -397,8 +397,40 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
             }
         }
+
+        // Choix role Groupe
+        if (interaction.customId === `tiers1`) {
+            await interaction.user.member.roles.remove(tiersRolesId);
+            await interaction.user.member.roles.add(tiersRolesId[0]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[0]).name} !`});
+        }
+
+        if (interaction.customId === `tiers2`) {
+            await interaction.user.member.roles.remove(tiersRolesId);
+            await interaction.user.member.roles.add(tiersRolesId[1]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[1]).name} !`});
+        }
+
+        if (interaction.customId === `tiers3`) {
+            await interaction.user.member.roles.remove(tiersRolesId);
+            await interaction.user.member.roles.add(tiersRolesId[2]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[2]).name} !`});
+        }
+
+        if (interaction.customId === `groupeA`) {
+            await interaction.user.member.roles.remove(groupeRoles);
+            await interaction.user.member.roles.add(groupeRoles[0]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(groupeRoles[0]).name} !`});
+        }
+
+        if (interaction.customId === `groupeB`) {
+            await interaction.user.member.roles.remove(groupeRoles);
+            await interaction.user.member.roles.add(groupeRoles[1]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(groupeRoles[1]).name} !`});
+        }
     }
 }
+
 
 async function CreateChannel(interaction) {
     if (await user_db.get(interaction.member.id + ".channelPerso") === undefined) {
@@ -411,7 +443,7 @@ async function CreateChannel(interaction) {
                 ReadMessageHistory: true
             }).then(() => {
                 channel.setTopic("Salon-perso-" + interaction.member.id).then(() => {
-                    forEach(mainRolesId, async role => {
+                    forEach(newMemberRolesId, async role => {
                         await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
                             ViewChannel: true,
                             SendMessages: true,
