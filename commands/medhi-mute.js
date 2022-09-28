@@ -43,6 +43,10 @@ module.exports = {
                         name: `Pendant :`,
                         value: `${timeToMute / 1000} secondes`
                     })
+                    .addFields({
+                        name: `Raison :`,
+                        value: `${reason}`
+                    })
                     .setTimestamp()
                     .setFooter({text: 'Medhi', iconURL: interaction.guild.members.cache.get("422807797525250079").displayAvatarURL()});
                 interaction.reply({embeds: [mehdi_mute_embeds]});
