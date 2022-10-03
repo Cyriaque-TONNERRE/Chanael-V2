@@ -3,7 +3,7 @@ const {register_user} = require("../fonctions/register_user");
 const {randomInt} = require("mathjs");
 const {lvl_up} = require("../fonctions/lvl_up");
 const {EmbedBuilder} = require("discord.js");
-const {channelBotId, clientId, categoryNoXpNoMoney, channelNoXpNoMoney, roleNoXpNoMoney} = require("../config.json");
+const {channelBotId, clientId, categoryNoXpNoMoney, channelNoXpNoMoney, roleNoXpNoMoney, categoryGifNonAdmis, channelGifNonAdmisId} = require("../config.json");
 const db = new QuickDB();
 
 const user_db = db.table("user");
@@ -39,6 +39,17 @@ module.exports = {
                         });
                     });
                 }
+            }
+        }
+        if (categoryGifNonAdmis.find(id => id === message.channel.parentId) /*|| channelGifNonAdmisId.find(id => id === message.channel.id)*/) {
+            if (message.attachments.size !== 0) {
+                for (const [, value] of message.attachments) {
+                    if (value.name.endsWith(".gif")) {
+                        message.delete();
+                    }
+                }
+            } else if (new RegExp(/(https?:\/\/.*(?:gif).*)/i).test(message.content)) {
+                message.delete();
             }
         }
     }
