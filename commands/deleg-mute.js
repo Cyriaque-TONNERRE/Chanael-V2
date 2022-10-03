@@ -93,6 +93,8 @@ module.exports = {
                     interaction.reply({embeds: [mute_embeds]});
                 }
             }
+        } else {
+            interaction.reply({content:"Vous n'êtes pas délégué(e)", ephemeral:true})
         }
     },
 };
