@@ -1,7 +1,7 @@
 {
   "name": "Chanael-V2",
   "version": "1.0.0",
-    "description": "Bot pour le serveur Discord de la promo 67 ISEN LILLE",
+  "description": "Bot pour le serveur Discord de la promo 67 ISEN LILLE",
   "main": "index.js",
   "dependencies": {
     "@discordjs/rest": "^1.0.0",

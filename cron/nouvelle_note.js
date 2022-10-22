@@ -9,9 +9,9 @@ const note_db = db.table("note");
 module.exports = {
     name: 'nouvelle_note',
     execute(client) {
-        cron.schedule('0 * * * *', async () => {
-            const browser = await puppeteer.launch({
-                //headless: false, slowMo: 100, // Uncomment to visualize test
+        cron.schedule('0s * * * *', async () => {
+            const browser = await puppeteer.launch({executablePath: '/usr/bin/chromium-browser'
+                //, headless: false, slowMo: 100, // Uncomment to visualize test
             });
             const page = await browser.newPage();
 
