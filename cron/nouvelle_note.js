@@ -56,7 +56,7 @@ module.exports = {
             const element = await page.evaluate(() => document.querySelector('.ui-datatable-tablewrapper > table > tbody > tr:last-child').attributes['data-ri'].value);
             const nbnote = parseInt(element) + 1;
             await browser.close();
-            if (nbnote > await note_db.get("nbnote")) {
+            if (nbnote > await note_db.get("nbNote")) {
                 client.guilds.cache.get(guildId).channels.cache.get(channelAnnounceId).send("Une nouvelle note est apparue sur Aurion ! *Feature actuellement en test probabilité d'erreur élevée*");
                 await note_db.set(`nbNote`, nbnote);
             }
