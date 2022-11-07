@@ -1,4 +1,6 @@
 const {SlashCommandBuilder} = require("discord.js");
+const {roleDelegueId} = require("../config.json");
+const {verificationpermission} = require("../fonctions/verificationpermission");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('unmute')
@@ -9,12 +11,19 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction) {
-        const user = interaction.options.getUser('utilisateur');
-        if (!(user.communicationDisabledUntilTimestamp !== null) || user.communicationDisabledUntilTimestamp < new Date().getTime()) {
-            interaction.reply({content: `L'utilisateur n'est pas mute !`, ephemeral: true});
+        if(interaction.member.roles.cache.has(roleDelegueId) || verificationpermission(interaction)) {
+            const user = interaction.options.getUser('utilisateur');
+            if (!(user.communicationDisabledUntilTimestamp !== null) || user.communicationDisabledUntilTimestamp < new Date().getTime()) {
+                interaction.reply({content: `L'utilisateur n'est pas mute !`, ephemeral: true});
+            } else {
+                user.communicationDisabledUntilTimestamp = new Date().getTime();
+                interaction.reply({content: `L'utilisateur a bien été demute.`, ephemeral: true});
+            }
         } else {
-            user.communicationDisabledUntilTimestamp = new Date().getTime();
-            interaction.reply({content: `L'utilisateur a bien été demute.`, ephemeral: true});
+            if (verificationpermission(interaction)) {
+                return;
+            }
+            interaction.reply({content :"Vous n'avez pas la permission d'utiliser cette commande.", ephemeral: true});
         }
     },
 };
