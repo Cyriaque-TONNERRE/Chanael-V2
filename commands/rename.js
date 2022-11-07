@@ -11,7 +11,7 @@ module.exports = {
         .addStringOption(option =>
             option.setName('nom')
                 .setDescription('Le nom du salon.')
-                .max_length(100)
+                .maxLength(100)
                 .setRequired(true)),
 
     async execute(interaction) {
