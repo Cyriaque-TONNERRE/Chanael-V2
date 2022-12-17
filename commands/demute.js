@@ -12,6 +12,7 @@ module.exports = {
 
     async execute(interaction) {
         if(interaction.member.roles.cache.has(roleDelegueId) || verificationpermission(interaction)) {
+            console.log("Perm c'est bon")
             const user = interaction.options.getUser('utilisateur');
             if (!(user.communicationDisabledUntilTimestamp !== null) || user.communicationDisabledUntilTimestamp < new Date().getTime()) {
                 interaction.reply({content: `L'utilisateur n'est pas mute !`, ephemeral: true});
@@ -20,9 +21,6 @@ module.exports = {
                 interaction.reply({content: `L'utilisateur a bien été demute.`, ephemeral: true});
             }
         } else {
-            if (verificationpermission(interaction)) {
-                return;
-            }
             interaction.reply({content :"Vous n'avez pas la permission d'utiliser cette commande.", ephemeral: true});
         }
     },
