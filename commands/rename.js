@@ -20,7 +20,7 @@ module.exports = {
                 interaction.reply({ content: `Vous n'avez pas de salon personnel !`, ephemeral: true});
             } else {
                 //si le salon ne commence pas par "salon", on ne peut pas le renommer
-                if (interaction.guild.channels.cache.get(channel).name.startsWith("salon")) {
+                if (!interaction.guild.channels.cache.get(channel).name.startsWith("salon")) {
                     console.log(interaction.guild.channels.cache.get(channel).name);
                     interaction.reply({content: `Ce salon à deja était rename ! *(Pour changer son nom re-créez en un autre !)*`, ephemeral: true});
                 } else {
