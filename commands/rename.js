@@ -24,8 +24,8 @@ module.exports = {
                     console.log(interaction.guild.channels.cache.get(channel).name);
                     interaction.reply({content: `Ce salon à deja était rename ! *(Pour changer son nom re-créez en un autre !)*`, ephemeral: true});
                 } else {
-                    await interaction.guild.channels.cache.get(channel).setName(interaction.options.getString('nom'));
                     interaction.reply({content: `Le salon a bien été renommé.`, ephemeral: true});
+                    interaction.guild.channels.cache.get(channel).setName(interaction.options.getString('nom'));
                 }
             }
         });
