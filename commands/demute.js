@@ -1,5 +1,4 @@
 const {SlashCommandBuilder} = require("discord.js");
-const {roleDelegueId} = require("../config.json");
 const {verificationpermission} = require("../fonctions/verificationpermission");
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,13 +10,12 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction) {
-        if(interaction.member.roles.cache.has(roleDelegueId) || verificationpermission(interaction)) {
-            console.log("Perm c'est bon")
-            const user = interaction.options.getUser('utilisateur');
-            if (!(user.communicationDisabledUntilTimestamp !== null) || user.communicationDisabledUntilTimestamp < new Date().getTime()) {
+        if(verificationpermission(interaction)) {
+            const member = interaction.guild.members.cache.get(interaction.options.getUser('utilisateur').id);
+            if (!(member.communicationDisabledUntilTimestamp !== null) || member.communicationDisabledUntilTimestamp < new Date().getTime()) {
                 interaction.reply({content: `L'utilisateur n'est pas mute !`, ephemeral: true});
             } else {
-                user.communicationDisabledUntilTimestamp = new Date().getTime();
+                member.timeout(null, "Demute par " + interaction.user.tag);
                 interaction.reply({content: `L'utilisateur a bien été demute.`, ephemeral: true});
             }
         } else {
