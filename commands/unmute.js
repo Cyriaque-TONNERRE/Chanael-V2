@@ -8,7 +8,7 @@ module.exports = {
             option.setName('utilisateur')
                 .setDescription('L\'utilisateur à demute.')
                 .setRequired(true)),
-    aliases: ["demute"],
+
 
     async execute(interaction) {
         if(verificationpermission(interaction)) {
