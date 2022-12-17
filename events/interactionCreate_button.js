@@ -1,6 +1,6 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const {fcollector} = require("../fonctions/new_user");
-const {channelWelcomeId, roleTempId, newMemberRolesId, tiersRolesId, groupeRoles, tempRoleId} = require("../config.json");
+const {channelWelcomeId, roleTempId, newMemberRolesId, tiersRolesId, groupeRoles, tempRoleId, roleModoId, roleAdminId, roleDelegueId} = require("../config.json");
 const {randomInt, forEach} = require("mathjs");
 const {QuickDB} = require("quick.db");
 const {verificationpermission} = require("../fonctions/verificationpermission");
@@ -9,6 +9,8 @@ const {register_user} = require("../fonctions/register_user");
 const db = new QuickDB();
 
 const user_db = db.table("user");
+
+const with_perms = [roleModoId, roleAdminId, roleDelegueId];
 
 /*-----/!\------Attention-ce-fichier-ne-gère-que-les-boutons-----/!\----------*/
 
@@ -435,32 +437,30 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
 async function CreateChannel(interaction) {
     if (await user_db.get(interaction.member.id + ".channelPerso") === undefined) {
         interaction.channel.clone({name : "salon-de-" + interaction.member.displayName }).then(async channel => {
-            await channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
-                ViewChannel: true,
-                SendMessages: true,
-                EmbedLinks: true,
-                AttachFiles: true,
-                ReadMessageHistory: true
-            }).then(() => {
-                channel.setTopic("Salon-perso-" + interaction.member.id).then(() => {
-                    forEach(newMemberRolesId, async role => {
+            channel.setTopic("Salon-perso-" + interaction.member.id).then(() => {
+                forEach(newMemberRolesId, async role => {
+                    await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
+                        ViewChannel: true,
+                        SendMessages: true,
+                        EmbedLinks: true,
+                        AttachFiles: true,
+                        ReadMessageHistory: true
+                    });
+                }).then(() => {
+                    forEach(with_perms, async role => {
                         await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
-                            ViewChannel: true,
-                            SendMessages: true,
-                            EmbedLinks: true,
-                            AttachFiles: true,
-                            ReadMessageHistory: true
+                            ManageChannels: true
                         });
-                    })
-                    const deleteChannel = new ActionRowBuilder()
-                        .addComponents(
-                            new ButtonBuilder()
-                                .setCustomId('deleteChannel')
-                                .setLabel('Supprimer le salon')
-                                .setStyle(ButtonStyle.Danger)
-                        );
-                    channel.send({content: `<@${interaction.member.id}>, ton salon a été créé ! Utilise le bouton ci-dessous pour le supprimer.`, components: [deleteChannel]});
+                    });
                 });
+                const deleteChannel = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('deleteChannel')
+                            .setLabel('Supprimer le salon')
+                            .setStyle(ButtonStyle.Danger)
+                    );
+                channel.send({content: `<@${interaction.member.id}>, ton salon a été créé ! Utilise le bouton ci-dessous pour le supprimer.`, components: [deleteChannel]});
             });
             const accessNewChannel = new ActionRowBuilder()
                 .addComponents(
