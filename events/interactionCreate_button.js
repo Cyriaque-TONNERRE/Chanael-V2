@@ -446,11 +446,10 @@ async function CreateChannel(interaction) {
                         AttachFiles: true,
                         ReadMessageHistory: true
                     });
-                }).then(() => {
-                    forEach(with_perms, async role => {
-                        await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
-                            ManageChannels: true
-                        });
+                });
+                forEach(with_perms, async role => {
+                    await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
+                        ManageChannels: true
                     });
                 });
                 const deleteChannel = new ActionRowBuilder()
