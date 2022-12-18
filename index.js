@@ -1,11 +1,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { QuickDB } = require("quick.db");
-const { Client, GatewayIntentBits, Collection} = require('discord.js');
+const { Client, Collection} = require('discord.js');
 const { token } = require('./config.json');
 const {register_user} = require('./fonctions/register_user.js');
 
-const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent], autoReconnect: true});
+const client = new Client({intents: 3276799, autoReconnect: true});
 
 // Enregistrement du client.warn dans un fichier
 client.warn = function (message) {
@@ -32,7 +32,7 @@ for (const file of commandFiles) {
 }
 
 client.on('interactionCreate',  async interaction => {
-    if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isChatInputCommand() && !interaction.isUserContextMenuCommand()) return;
 
     if (!await user_db.has(interaction.member.id)) {    
         register_user(interaction.member.id).then(() => {
@@ -66,6 +66,7 @@ client.on('interactionCreate',  async interaction => {
     }
 
 });
+
 
 //----------------Partie-Evenement----------------//
 
