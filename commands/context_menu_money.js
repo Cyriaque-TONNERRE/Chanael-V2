@@ -11,8 +11,10 @@ module.exports = {
 
     async execute(interaction) {
         const member = interaction.targetMember;
-        console.log(member);
-        const money = await user_db.get(member.id + `.money`);
+        let money = await user_db.get(member.id + `.money`);
+        if(isNaN(money)) {
+            money = 0;
+        }
         interaction.reply({content: `${member.displayName} a ${money} <a:octet:1010177758250405888> !`, ephemeral: true});
 
     }

@@ -16,11 +16,17 @@ module.exports = {
 
     async execute(interaction) {
         if (interaction.options.getUser('user') === null) {
-            const money = await user_db.get(interaction.user.id + `.money`);
+            let money = await user_db.get(interaction.user.id + `.money`);
+            if(isNaN(money)) {
+                money = 0;
+            }
             interaction.reply({content: `Vous avez ${money} <a:octet:1010177758250405888> !`, ephemeral: true});
         } else {
             const member = interaction.guild.members.cache.get(interaction.options.getUser('user').id);
-            const money = await user_db.get(member.id + `.money`);
+            let money = await user_db.get(member.id + `.money`);
+            if(isNaN(money)) {
+                money = 0;
+            }
             interaction.reply({content: `${member.displayName} a ${money} <a:octet:1010177758250405888> !`, ephemeral: true});
         }
     }
