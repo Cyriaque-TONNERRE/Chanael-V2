@@ -17,6 +17,7 @@ module.exports = {
         .addIntegerOption(option =>
             option.setName('montant')
                 .setDescription('Quantité d\'Octets à donner.')
+                .setMinValue(1)
                 .setRequired(true),
         )
         .addStringOption(option =>
