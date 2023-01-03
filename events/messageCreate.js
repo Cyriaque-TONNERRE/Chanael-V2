@@ -46,11 +46,6 @@ module.exports = {
                 message.reply("Nique ta mère");
             }
         }
-        //Si le message se termine par "quoi" et au plus 2 caractères apres, on répond "feur HAHAHAHAHAHAHA"
-        if (message.content.match(/quoi.{0,2}$/i)) {
-            message.reply("feur HAHAHAHAHAHAHA");
-        }
-
         if (categoryGifNonAdmis.find(id => id === message.channel.parentId) /*|| channelGifNonAdmisId.find(id => id === message.channel.id)*/) {
             if (message.attachments.size !== 0) {
                 for (const [, value] of message.attachments) {
