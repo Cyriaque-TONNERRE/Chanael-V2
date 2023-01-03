@@ -47,7 +47,7 @@ module.exports = {
             }
         }
         //Si le message se termine par "quoi" on répond "feur HAHAHAHAHAHAHA"
-        if (message.content.endsWith("quoi")) {
+        if (message.content.endsWith("quoi" || "quoi." || "quoi?" || "quoi !" || "quoi !?" || "quoi ?" || "quoi ")) {
             message.reply("feur HAHAHAHAHAHAHA");
         }
         if (categoryGifNonAdmis.find(id => id === message.channel.parentId) /*|| channelGifNonAdmisId.find(id => id === message.channel.id)*/) {
