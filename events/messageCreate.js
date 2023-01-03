@@ -42,10 +42,13 @@ module.exports = {
             }
         }
         if (message.author.id === "272445898133471242") {
-            //Si le message contient <@967754517967941652> on répond "Nique ta mère"
             if (message.content.includes("<@967754517967941652>")) {
                 message.reply("Nique ta mère");
             }
+        }
+        //Si le message se termine par "quoi" on répond "feur HAHAHAHAHAHAHA"
+        if (message.content.endsWith("quoi")) {
+            message.reply("feur HAHAHAHAHAHAHA");
         }
         if (categoryGifNonAdmis.find(id => id === message.channel.parentId) /*|| channelGifNonAdmisId.find(id => id === message.channel.id)*/) {
             if (message.attachments.size !== 0) {
