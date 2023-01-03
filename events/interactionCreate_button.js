@@ -438,8 +438,8 @@ async function CreateChannel(interaction) {
     if (await user_db.get(interaction.member.id + ".channelPerso") === undefined) {
         interaction.channel.clone({name : "salon-de-" + interaction.member.displayName }).then(async channel => {
             channel.setTopic("Salon-perso-" + interaction.member.id).then(() => {
-                forEach(newMemberRolesId, async role => {
-                    await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
+                forEach(newMemberRolesId, role => {
+                    channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
                         ViewChannel: true,
                         SendMessages: true,
                         EmbedLinks: true,
@@ -447,8 +447,8 @@ async function CreateChannel(interaction) {
                         ReadMessageHistory: true
                     });
                 });
-                forEach(with_perms, async role => {
-                    await channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
+                forEach(with_perms, role => {
+                    channel.permissionOverwrites.create(interaction.guild.roles.cache.get(role), {
                         ManageChannels: true
                     });
                 });
