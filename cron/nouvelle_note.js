@@ -9,7 +9,7 @@ const note_db = db.table("note");
 module.exports = {
     name: 'nouvelle_note',
     execute(client) {
-        cron.schedule('0s * * * *', async () => {
+        cron.schedule('*/15 * * * *', async () => {
             const browser = await puppeteer.launch({executablePath: '/usr/bin/chromium-browser'
                 //, headless: false, slowMo: 100, // Uncomment to visualize test
             });
@@ -57,7 +57,7 @@ module.exports = {
             const nbnote = parseInt(element) + 1;
             await browser.close();
             if (nbnote > await note_db.get("nbNote")) {
-                client.guilds.cache.get(guildId).channels.cache.get(channelAnnounceId).send("Une nouvelle note est apparue sur Aurion ! *Feature actuellement en test probabilité d'erreur élevée*");
+                client.guilds.cache.get(guildId).channels.cache.get(channelAnnounceId).send("Une nouvelle note est apparue sur Aurion !");
                 await note_db.set(`nbNote`, nbnote);
             }
         },{
