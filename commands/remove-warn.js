@@ -54,6 +54,8 @@ module.exports = {
                 } else {
                     interaction.reply({content: `L'utilisateur n'a aucun warn.`, ephemeral: true});
                 }
+            } else {
+                interaction.reply({content: `L'utilisateur n'a aucun warn.`, ephemeral: true});
             }
         }
     }
