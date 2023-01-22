@@ -50,9 +50,12 @@ module.exports = {
                         );
                     interaction.reply({content: `Choisissez un warn à retirer :`, components: [row]}).then( () => {
                             setTimeout(() => {
-                                try {
-                                    interaction.deleteReply()
-                                } catch (e) {}
+                                interaction.fetchReply().then((msg) => {
+                                    console.log(msg);
+                                    if (msg.content.length < 1) {
+                                        interaction.deleteReply();
+                                    }
+                                }).catch();
                             }, 60000);
                     }).catch();
                 } else {
