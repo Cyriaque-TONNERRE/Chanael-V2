@@ -49,7 +49,9 @@ module.exports = {
                                 .addOptions(liste_warn_affichage)
                         );
                     interaction.reply({content: `Choisissez un warn à retirer :`, components: [row]}).then( () => {
-                        setTimeout(() => interaction.deleteReply(), 60000);
+                        try {
+                            setTimeout(() => interaction.deleteReply(), 60000);
+                        } catch (e) {}
                     }).catch();
                 } else {
                     interaction.reply({content: `L'utilisateur n'a aucun warn.`, ephemeral: true});
