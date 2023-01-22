@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { QuickDB } = require("quick.db");
-const { Client, Collection} = require('discord.js');
+const { Client, Collection, Events} = require('discord.js');
 const { token } = require('./config.json');
 const {register_user} = require('./fonctions/register_user.js');
 
@@ -31,7 +31,7 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-client.on('interactionCreate',  async interaction => {
+client.on(Events.InteractionCreate,  async interaction => {
     if (!interaction.isChatInputCommand() && !interaction.isUserContextMenuCommand()) return;
 
     if (!await user_db.has(interaction.member.id)) {    

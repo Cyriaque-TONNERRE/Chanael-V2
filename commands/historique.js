@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const {QuickDB} = require("quick.db");
 const {clientId} = require("../config.json");
 const db = new QuickDB();
@@ -34,35 +34,58 @@ module.exports = {
 
         const membre = interaction.guild.members.cache.get(interaction.options.getUser('pseudo').id);
         const sanctionEmbed = new EmbedBuilder();
-        user_db.get(`${membre.id}.sanction`).then(async (list) => {
-            if (list.length === 0) {
-                sanctionEmbed
-                    .setColor('#3dd583')
-                    .setTitle(`Sanctions de ${membre.displayName}`)
-                    .setThumbnail(membre.displayAvatarURL())
-                    .addFields({
-                        name: `**Sanction :**`,
-                        value: `Aucune sanction n'a été ajoutée à ce membre. GG`
-                    })
-                    .setTimestamp()
-                    .setFooter({text: 'Chanael', iconURL: interaction.guild.members.cache.get(clientId).displayAvatarURL()});
-            } else {
-                sanctionEmbed
-                    .setColor('#3dd583')
-                    .setTitle(`Sanctions de ${membre.displayName}`)
-                    .setThumbnail(membre.user.displayAvatarURL())
-                    .addFields(
-                        list.map(s => {
-                            return {
-                                name: `**Sanction pour** : ${s.reason}`,
-                                value: `${timestampToDate(s.timestamp)}\n**Par :** ${interaction.guild.members.cache.find(user => user.id === s.modo).displayName}`
-                            }
+        if (await user_db.has(membre.id)) {
+            user_db.get(`${membre.id}.sanction`).then(async (list) => {
+                if (list.length === 0) {
+                    sanctionEmbed
+                        .setColor('#3dd583')
+                        .setTitle(`Sanctions de ${membre.displayName}`)
+                        .setThumbnail(membre.displayAvatarURL())
+                        .addFields({
+                            name: `**Sanction :**`,
+                            value: `Aucune sanction n'a été ajoutée à ce membre. GG`
                         })
-                    )
-                    .setTimestamp()
-                    .setFooter({text: 'Chanael', iconURL: interaction.guild.members.cache.get(clientId).displayAvatarURL()});
-            }
+                        .setTimestamp()
+                        .setFooter({
+                            text: 'Chanael',
+                            iconURL: interaction.guild.members.cache.get(clientId).displayAvatarURL()
+                        });
+                } else {
+                    sanctionEmbed
+                        .setColor('#3dd583')
+                        .setTitle(`Sanctions de ${membre.displayName}`)
+                        .setThumbnail(membre.user.displayAvatarURL())
+                        .addFields(
+                            list.map(s => {
+                                return {
+                                    name: `**Sanction pour** : ${s.reason}`,
+                                    value: `${timestampToDate(s.timestamp)}\n**Par :** ${interaction.guild.members.cache.find(user => user.id === s.modo).displayName}`
+                                }
+                            })
+                        )
+                        .setTimestamp()
+                        .setFooter({
+                            text: 'Chanael',
+                            iconURL: interaction.guild.members.cache.get(clientId).displayAvatarURL()
+                        });
+                }
+                interaction.reply({embeds: [sanctionEmbed]});
+            });
+        } else {
+            sanctionEmbed
+                .setColor('#3dd583')
+                .setTitle(`Sanctions de ${membre.displayName}`)
+                .setThumbnail(membre.displayAvatarURL())
+                .addFields({
+                    name: `**Sanction :**`,
+                    value: `Aucune sanction n'a été ajoutée à ce membre. GG`
+                })
+                .setTimestamp()
+                .setFooter({
+                    text: 'Chanael',
+                    iconURL: interaction.guild.members.cache.get(clientId).displayAvatarURL()
+                });
             interaction.reply({embeds: [sanctionEmbed]});
-        });
+        }
     }
 };
