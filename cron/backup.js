@@ -10,7 +10,7 @@ module.exports = {
                 fs.mkdirSync('./backup');
             }
             // Backup de la base de données
-            fs.copyFile('./json.sqlite', './backup/' + new Date().getTime().toString() + '.json', (err) => {
+            fs.copyFile('./json.sqlite', './backup/' + new Date().getTime().toString() + '.sqlite', (err) => {
                 if (err) throw err;
                 console.log('Fichier de backup créé !');
             });
