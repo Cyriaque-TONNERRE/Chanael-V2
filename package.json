@@ -9,7 +9,7 @@
     "discord.js": "^14.7.1",
     "mathjs": "^11.0.0",
     "node-cron": "^3.0.1",
-    "puppeteer": "^18.1.0",
+    "puppeteer": "^19.2.0",
     "quick.db": "^9.0.5",
     "uuid": "^8.3.2"
   }
