@@ -4,6 +4,7 @@ const { QuickDB } = require("quick.db");
 const { Client, Collection, Events} = require('discord.js');
 const { token } = require('./config.json');
 const {register_user} = require('./fonctions/register_user.js');
+const {EventEmitter} = require("events");
 
 const client = new Client({intents: 3276799, autoReconnect: true});
 
@@ -11,6 +12,9 @@ const client = new Client({intents: 3276799, autoReconnect: true});
 client.warn = function (message) {
     fs.appendFileSync(path.join(__dirname, 'warn.log'), `${new Date().toLocaleString()} | ${message}\n`);
 }
+
+const emitter = new EventEmitter();
+emitter.setMaxListeners(15);
 
 //----------------Partie-Base-de-données-----------//
 
