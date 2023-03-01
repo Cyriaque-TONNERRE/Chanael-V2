@@ -5,12 +5,12 @@
   "main": "index.js",
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
-    "better-sqlite3": "^7.6.2",
     "discord.js": "^14.7.1",
     "mathjs": "^11.0.0",
     "node-cron": "^3.0.1",
     "puppeteer": "^19.2.0",
-    "quick.db": "^9.0.5",
+    "quick.db": "^9.0.8",
+    "better-sqlite3": "^8.1.0",
     "uuid": "^8.3.2"
   }
 }
