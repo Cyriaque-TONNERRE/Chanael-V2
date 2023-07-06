@@ -108,4 +108,5 @@ config.json
 *.sqlite
 json.sqlite
 *est.js
+pnpm-lock.yaml
 
