@@ -1,6 +1,6 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const {fcollector} = require("../fonctions/new_user");
-const {channelWelcomeId, roleTempId, newMemberRolesId, tiersRolesId, groupeRoles, tempRoleId, roleModoId, roleAdminId, roleDelegueId} = require("../config.json");
+const {channelWelcomeId, roleTempId, oldMemberRolesId, newMemberRolesId, tiersRolesId, groupeRoles, tempRoleId, roleModoId, roleAdminId, roleDelegueId} = require("../config.json");
 const {randomInt, forEach} = require("mathjs");
 const {QuickDB} = require("quick.db");
 const {verificationpermission} = require("../fonctions/verificationpermission");
@@ -107,6 +107,14 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                     interaction.reply({content: 'Vous avez accepté le règlement.', ephemeral: true});
                     const chooseRoleButton = new ActionRowBuilder().addComponents(
                         new ButtonBuilder()
+                            .setCustomId('cir3')
+                            .setLabel('CIR 3')
+                            .setStyle(ButtonStyle.Primary),
+                        new ButtonBuilder()
+                            .setCustomId('cnb3')
+                            .setLabel('CNB 3')
+                            .setStyle(ButtonStyle.Success),
+                        new ButtonBuilder()
                             .setCustomId('cir2')
                             .setLabel('CIR 2')
                             .setStyle(ButtonStyle.Primary),
@@ -114,14 +122,6 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                             .setCustomId('cnb2')
                             .setLabel('CNB 2')
                             .setStyle(ButtonStyle.Success),
-                        new ButtonBuilder()
-                            .setCustomId('cir1')
-                            .setLabel('CIR 1')
-                            .setStyle(ButtonStyle.Secondary),
-                        new ButtonBuilder()
-                            .setCustomId('cnb1')
-                            .setLabel('CNB 1')
-                            .setStyle(ButtonStyle.Secondary),
                         new ButtonBuilder()
                             .setCustomId('autre')
                             .setLabel('Autre')
@@ -159,6 +159,308 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
             }
         }
 
+        // Autre role part 1
+        if (interaction.customId === `autre`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                const autreButton = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('cpg3')
+                            .setLabel('CPG 3')
+                            .setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder()
+                            .setCustomId('cpg2')
+                            .setLabel('CPG 2')
+                            .setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder()
+                            .setCustomId('cir1')
+                            .setLabel('CIR 1')
+                            .setStyle(ButtonStyle.Primary),
+                        new ButtonBuilder()
+                            .setCustomId('autre2')
+                            .setLabel('Autre')
+                            .setStyle(ButtonStyle.Danger),
+                    );
+                interaction.reply({content: 'Quel est votre role ?', components: [autreButton], ephemeral: true});
+            }
+        }
+
+        // Autre role part 2
+
+        if (interaction.customId === `autre2`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                const autreButton = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('cnb1')
+                            .setLabel('CNB 1')
+                            .setStyle(ButtonStyle.Success),
+                        new ButtonBuilder()
+                            .setCustomId('cpg1')
+                            .setLabel('CPG 1')
+                            .setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder()
+                            .setCustomId('autre_isen')
+                            .setLabel('Année Sup ISEN')
+                            .setStyle(ButtonStyle.Danger),
+                        new ButtonBuilder()
+                            .setCustomId('externe')
+                            .setLabel('Externe (pas/plus ISEN)')
+                            .setStyle(ButtonStyle.Danger),
+                        new ButtonBuilder()
+                            .setCustomId('prof')
+                            .setLabel('Prof')
+                            .setStyle(ButtonStyle.Danger),
+                    );
+                interaction.reply({content: 'Quel est votre role ?', components: [autreButton], ephemeral: true});
+            }
+        }
+
+
+
+        // Partie choix role Arrivée
+        if (interaction.customId === `cir3`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[0]).then(() => {
+                    interaction.member.roles.remove(roleTempId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CIR3 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `cnb3`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[3]).then(() => {
+                    interaction.member.roles.remove(roleTempId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CNB3 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `cir2`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[1]).then(() => {
+                    interaction.member.roles.remove(roleTempId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CIR2 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `cnb2`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[4]).then(() => {
+                    interaction.member.roles.remove(roleTempId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CNB2 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `cpg3`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[6]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CPG 3 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `cpg2`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[7]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CPG 2 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `cir1`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[2]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CIR 1 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `cnb1`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[5]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CNB 1 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+
+        if (interaction.customId === `cpg1`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[8]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role CPG 1 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `autre_isen`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[9]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role Vieille Brindille !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `externe`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[10]).then(() => {
+                    interaction.member.roles.remove(tempRoleId);
+                    interaction.reply({content: 'Vous avez bien été ajouté au role Parti Trop Tôt !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        }
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+        if (interaction.customId === `prof`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                interaction.guild.channels.cache.get('948552469066178560').send(`||@everyone|| ALERT PROF : <@${interaction.member.id}> a voulu se connecter en tant que Prof !`);
+                interaction.reply({content: 'Votre demande a bien été prise en compte, nous vous re-contacterons d\'ici peu!', ephemeral: true});
+                setTimeout(() => {
+                    interaction.member.kick({reason:`Votre demande a bien été prise en compte, nous vous re-contacterons d'ici peu!`});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            interaction.channel.delete();
+                        }
+                    }
+                }, 10000);
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
+
+
+        // Passage 2023/2024
+
+        
+
+
+
+        // Choix role Groupe
+        if (interaction.customId === `tiers1`) {
+            await interaction.user.member.roles.remove(tiersRolesId);
+            await interaction.user.member.roles.add(tiersRolesId[0]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[0]).name} !`});
+        }
+
+        if (interaction.customId === `tiers2`) {
+            await interaction.user.member.roles.remove(tiersRolesId);
+            await interaction.user.member.roles.add(tiersRolesId[1]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[1]).name} !`});
+        }
+
+        if (interaction.customId === `tiers3`) {
+            await interaction.user.member.roles.remove(tiersRolesId);
+            await interaction.user.member.roles.add(tiersRolesId[2]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[2]).name} !`});
+        }
+
+        if (interaction.customId === `groupeA`) {
+            await interaction.user.member.roles.remove(groupeRoles);
+            await interaction.user.member.roles.add(groupeRoles[0]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(groupeRoles[0]).name} !`});
+        }
+
+        if (interaction.customId === `groupeB`) {
+            await interaction.user.member.roles.remove(groupeRoles);
+            await interaction.user.member.roles.add(groupeRoles[1]);
+            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(groupeRoles[1]).name} !`});
+        }
 
         // Partie Fin d'un ticket
 
@@ -210,225 +512,6 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
             } else {
                 interaction.reply({content: 'Vous n\'avez pas le droit de supprimer ce salon !', ephemeral: true});
             }
-        }
-
-        // Partie choix role Arrivée
-
-        if (interaction.customId === `cir2`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[0]).then(() => {
-                    interaction.member.roles.remove(roleTempId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role CIR2 !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-        if (interaction.customId === `cnb2`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[1]).then(() => {
-                    interaction.member.roles.remove(roleTempId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role CNB2 !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-        if (interaction.customId === `cir1`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[3]).then(() => {
-                    interaction.member.roles.remove(tempRoleId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role CIR1 !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-        if (interaction.customId === `cnb1`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[4]).then(() => {
-                    interaction.member.roles.remove(tempRoleId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role CNB1 !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-        if (interaction.customId === `autre`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                const autreButton = new ActionRowBuilder()
-                    .addComponents(
-                        new ButtonBuilder()
-                            .setCustomId('cpg2')
-                            .setLabel('CPG 2')
-                            .setStyle(ButtonStyle.Success),
-                        new ButtonBuilder()
-                            .setCustomId('cpg1')
-                            .setLabel('CPG 1')
-                            .setStyle(ButtonStyle.Success),
-                        new ButtonBuilder()
-                            .setCustomId('autre_isen')
-                            .setLabel('Année Sup ISEN')
-                            .setStyle(ButtonStyle.Primary),
-                        new ButtonBuilder()
-                            .setCustomId('externe')
-                            .setLabel('Externe (pas/plus ISEN)')
-                            .setStyle(ButtonStyle.Secondary),
-                        new ButtonBuilder()
-                            .setCustomId('prof')
-                            .setLabel('Prof')
-                            .setStyle(ButtonStyle.Danger),
-                    );
-                interaction.reply({content: 'Quel est votre role ?', components: [autreButton], ephemeral: true});
-            }
-        }
-
-        if (interaction.customId === `cpg1`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[5]).then(() => {
-                    interaction.member.roles.remove(tempRoleId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role CPG 1 !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-
-        if (interaction.customId === `cpg2`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[2]).then(() => {
-                    interaction.member.roles.remove(tempRoleId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role CPG 2 !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-
-        if (interaction.customId === `autre_isen`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[7]).then(() => {
-                    interaction.member.roles.remove(tempRoleId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role Vieille Brindille !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-
-        if (interaction.customId === `externe`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[6]).then(() => {
-                    interaction.member.roles.remove(tempRoleId);
-                    interaction.reply({content: 'Vous avez bien été ajouté au role Parti Trop Tôt !', ephemeral: true});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            setTimeout(() => {
-                                interaction.channel.delete();
-                            }, 5000);
-                        }
-                    }
-                });
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-
-        if (interaction.customId === `prof`) {
-            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                interaction.guild.channels.cache.get('948552469066178560').send(`||@everyone|| ALERT PROF : <@${interaction.member.id}> a voulu se connecter en tant que Prof !`);
-                interaction.reply({content: 'Votre demande a bien été prise en compte, nous vous re-contacterons d\'ici peu!', ephemeral: true});
-                setTimeout(() => {
-                    interaction.member.kick({reason:`Votre demande a bien été prise en compte, nous vous re-contacterons d'ici peu!`});
-                    if (interaction.channel.topic !== null) {
-                        if (interaction.channel.topic.startsWith("enregistrement-")) {
-                            interaction.channel.delete();
-                        }
-                    }
-                }, 10000);
-            } else {
-                interaction.reply({content: 'Vous possedez déja un role pour 2022/2023!', ephemeral: true});
-            }
-        }
-
-        // Choix role Groupe
-        if (interaction.customId === `tiers1`) {
-            await interaction.user.member.roles.remove(tiersRolesId);
-            await interaction.user.member.roles.add(tiersRolesId[0]);
-            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[0]).name} !`});
-        }
-
-        if (interaction.customId === `tiers2`) {
-            await interaction.user.member.roles.remove(tiersRolesId);
-            await interaction.user.member.roles.add(tiersRolesId[1]);
-            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[1]).name} !`});
-        }
-
-        if (interaction.customId === `tiers3`) {
-            await interaction.user.member.roles.remove(tiersRolesId);
-            await interaction.user.member.roles.add(tiersRolesId[2]);
-            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(tiersRolesId[2]).name} !`});
-        }
-
-        if (interaction.customId === `groupeA`) {
-            await interaction.user.member.roles.remove(groupeRoles);
-            await interaction.user.member.roles.add(groupeRoles[0]);
-            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(groupeRoles[0]).name} !`});
-        }
-
-        if (interaction.customId === `groupeB`) {
-            await interaction.user.member.roles.remove(groupeRoles);
-            await interaction.user.member.roles.add(groupeRoles[1]);
-            interaction.reply({content:`Vous avez obtenue le role ${interaction.guild.roles.cache.get(groupeRoles[1]).name} !`});
         }
     }
 }

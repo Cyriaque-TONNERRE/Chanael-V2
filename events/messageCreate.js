@@ -13,6 +13,7 @@ module.exports = {
     async execute(message) {
         if (message.author.bot || message.guild.members.cache.get(message.author.id).roles.cache.hasAny(...roleNoXpNoMoney)) return;
         if (!categoryNoXpNoMoney.find(id => id === message.channel.parentId) && !channelNoXpNoMoney.find(id => id === message.channel.id)) {
+            /*
             if (!await user_db.has(message.author.id)) {
                 register_user(message.author.id).then(async () => {
                     await user_db.set(message.author.id + ".money", randomInt(5, 16));
@@ -39,7 +40,7 @@ module.exports = {
                         });
                     });
                 }
-            }
+            }*/
         }
         if (message.author.id === "272445898133471242") {
             if (message.content.includes("<@967754517967941652>")) {

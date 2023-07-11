@@ -11,6 +11,25 @@ module.exports = {
         .setName('four-tout')
         .setDescription('Execute du code pour le fun.'),
     async execute(interaction) {
-        interaction.reply({content: "Fait pas ça, tu vas tout casser !", ephemeral: true});
+        const nouvelleAnnee = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setLabel('CIR2')
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId('stillCIR2'),
+            new ButtonBuilder()
+                .setLabel('CIR3')
+                .setStyle(ButtonStyle.Success)
+                .setCustomId('goToCIR3'),
+            new ButtonBuilder()
+                .setLabel('Parti trop tôt')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId('byebye')
+        );
+        interaction.channel.send({
+            content: `Que faites vous l'année prochaine ?`,
+            components: [nouvelleAnnee],
+            ephemeral: false
+        });
+        //interaction.reply({content: "Fait pas ça, tu vas tout casser !", ephemeral: true});
     },
 };

@@ -7,7 +7,7 @@ const user_db = db.table("user");
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
-        .setName('level')
+        .setName('context-level')
         .setType(ApplicationCommandType.User),
 
     async execute(interaction) {

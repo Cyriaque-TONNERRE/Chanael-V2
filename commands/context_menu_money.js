@@ -6,7 +6,7 @@ const user_db = db.table("user");
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
-        .setName('money')
+        .setName('context-money')
         .setType(ApplicationCommandType.User),
 
     async execute(interaction) {

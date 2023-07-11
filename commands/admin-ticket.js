@@ -55,7 +55,7 @@ module.exports = {
                     })
                 });
             } else {
-                interaction.reply({content: 'Cet utilisateur a déjà aun admin-ticket ouvert.', ephemeral: true});
+                interaction.reply({content: 'Cet utilisateur a déjà un admin-ticket ouvert.', ephemeral: true});
             }
         }
     }

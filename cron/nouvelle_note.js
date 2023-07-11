@@ -11,7 +11,7 @@ module.exports = {
     execute(client) {
         cron.schedule('*/15 * * * *', async () => {
             const browser = await puppeteer.launch({executablePath: '/usr/bin/chromium-browser'
-                //, headless: false, slowMo: 100, // Uncomment to visualize test
+                , headless: "new" //, slowMo: 100, // Uncomment to visualize test
             });
             const page = await browser.newPage();
 

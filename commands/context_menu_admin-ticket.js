@@ -8,7 +8,7 @@ const user_db = db.table("user");
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
-        .setName('admin-ticket')
+        .setName('context-admin-ticket')
         .setType(ApplicationCommandType.User),
     async execute(interaction) {
         if (verificationpermission(interaction)) {
@@ -50,7 +50,7 @@ module.exports = {
                     })
                 });
             } else {
-                interaction.reply({content: 'Cet utilisateur a déjà aun admin-ticket ouvert.', ephemeral: true});
+                interaction.reply({content: 'Cet utilisateur a déjà un admin-ticket ouvert.', ephemeral: true});
             }
         }
     }
