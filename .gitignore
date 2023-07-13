@@ -110,3 +110,4 @@ json.sqlite
 *est.js
 pnpm-lock.yaml
 
+.vscode/*

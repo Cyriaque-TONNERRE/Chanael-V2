@@ -11,25 +11,31 @@ module.exports = {
         .setName('four-tout')
         .setDescription('Execute du code pour le fun.'),
     async execute(interaction) {
+        /*
         const nouvelleAnnee = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
-                .setLabel('CIR2')
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId('stillCIR2'),
-            new ButtonBuilder()
                 .setLabel('CIR3')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId('cir3'),
+            new ButtonBuilder()
+                .setLabel('CNB3')
                 .setStyle(ButtonStyle.Success)
-                .setCustomId('goToCIR3'),
+                .setCustomId('cnb3'),
+            new ButtonBuilder()
+                .setLabel('CPG3')
+                .setStyle(ButtonStyle.Secondary)
+                .setCustomId('cpg3'),
             new ButtonBuilder()
                 .setLabel('Parti trop tôt')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId('byebye')
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId('externe')
         );
         interaction.channel.send({
-            content: `Que faites vous l'année prochaine ?`,
+            content: `Si jamais des <@&900811941080096779> auraient redoublé ou nous auraient quittés :`,
             components: [nouvelleAnnee],
             ephemeral: false
         });
-        //interaction.reply({content: "Fait pas ça, tu vas tout casser !", ephemeral: true});
+        */
+        interaction.reply({content: "Fait pas ça, tu vas tout casser !", ephemeral: true});
     },
 };
