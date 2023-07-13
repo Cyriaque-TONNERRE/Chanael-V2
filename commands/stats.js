@@ -9,7 +9,7 @@ const user_db = db.table("user");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('stats')
-        .setDescription(`Permet de récuperer des stats autour de la momey genérer.`),
+        .setDescription(`Permet de récuperer des stats autour de la momey genérée sur le serveur.`),
 
     async execute(interaction) {
         if (verificationpermission(interaction)){

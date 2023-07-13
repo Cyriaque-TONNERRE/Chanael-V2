@@ -8,7 +8,7 @@ const user_db = db.table("user");
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
-        .setName('context-admin-ticket')
+        .setName('admin-ticket')
         .setType(ApplicationCommandType.User),
     async execute(interaction) {
         if (verificationpermission(interaction)) {

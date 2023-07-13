@@ -1,6 +1,6 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const {fcollector} = require("../fonctions/new_user");
-const {channelWelcomeId, roleTempId, oldMemberRolesId, newMemberRolesId, tiersRolesId, groupeRoles, tempRoleId, roleModoId, roleAdminId, roleDelegueId} = require("../config.json");
+const {channelWelcomeId, roleTempId, oldMemberRolesId, newMemberRolesId, tiersRolesId, groupeRoles, roleModoId, roleAdminId, roleDelegueId} = require("../config.json");
 const {randomInt, forEach} = require("mathjs");
 const {QuickDB} = require("quick.db");
 const {verificationpermission} = require("../fonctions/verificationpermission");
