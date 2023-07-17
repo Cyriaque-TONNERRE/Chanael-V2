@@ -19,6 +19,7 @@ Si ça marche pas, il faut installer node js :
 - **Dossier commands :** Où les slashs commands sont enregistré (eg : `/ping`)
 - **Dossier events :** Où les events discord sont récuperé (eg : `guildMemberAdd`)
 - **Dossier fonctions :** Où sont stocké les fonctions (eg : `verificationpermission`)
+- **Dossier cron :** Où sont executé les taches cron (eg : `backup`) 
 - **Dossier exemple :** Où sont donné les exemples pour build ce bot (eg : `ce fichier`)
 
 ## Pour démarrer le bot :
