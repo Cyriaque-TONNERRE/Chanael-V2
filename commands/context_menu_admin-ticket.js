@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, ActionRowBuilder, ButtonStyle } = require('discord.js');
 const {QuickDB} = require("quick.db");
 const {categoryTicketId, roleModoId} = require("../config.json");
 const {verificationpermission} = require("../fonctions/verificationpermission");
