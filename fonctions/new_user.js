@@ -23,9 +23,9 @@ function fcollector(channel,member) {
                     console.log("No match");
                     channel.send(`Le prénom est incorrect, veuillez réessayer.\nSi vous pensez qu'il s'agit d'une erreur, contactez Siryak#5777.\nRessayez`);
                     fcollector(channel, member);
-                } else if (toReturn.length > 25 || toReturn.length < 3) {
+                } else if (toReturn.length > 30 || toReturn.length < 3) {
                     console.log("No match");
-                    channel.send(`Le prénom est trop long *ou trop court*. Il doit faire entre 3 et 25 caractères inclus.\nSi vous pensez qu'il s'agit d'une erreur, contactez Siryak#5777.\nRessayez`);
+                    channel.send(`Le prénom est trop long *ou trop court*. Il doit faire entre 3 et 30 caractères inclus.\nSi vous pensez qu'il s'agit d'une erreur, contactez Siryak#5777.\nRessayez`);
                     fcollector(channel, member);
                 } else {
                     prenom = toReturn.substring(0,1).toUpperCase() + toReturn.substring(1).toLowerCase();
@@ -55,8 +55,8 @@ function fcollector2(channel, member) {
                     console.log("No match");
                     channel.send(`Le nom est incorrect, veuillez réessayer.\nSi vous pensez qu'il s'agit d'une erreur, contactez Siryak#5777.\nRessayez`);
                     fcollector2(channel, member);
-                } else if (toReturn.length > 15 || toReturn.length < 3) {
-                    channel.send(`Le nom est trop long *ou trop court*. Il doit faire entre 3 et 15 caractères inclus.\nSi vous pensez qu'il s'agit d'une erreur, contactez Siryak#5777.\nRessayez`);
+                } else if (toReturn.length > 30 || toReturn.length < 3) {
+                    channel.send(`Le nom est trop long *ou trop court*. Il doit faire entre 3 et 30 caractères inclus.\nSi vous pensez qu'il s'agit d'une erreur, contactez Siryak#5777.\nRessayez`);
                     fcollector2(channel, member);
                 } else {
                     nom = toReturn.substring(0, 1).toUpperCase() + toReturn.substring(1).toLowerCase();
