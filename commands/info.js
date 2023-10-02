@@ -1,6 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const {QuickDB} = require("quick.db");
-const { round, pow } = require('mathjs');
 const db = new QuickDB();
 
 const user_db = db.table("user");
@@ -31,18 +30,6 @@ module.exports = {
             .setThumbnail(membre.displayAvatarURL())
             .setTimestamp()
             .addFields(
-                {
-                    name: "Money :",
-                    value: `${userData ? userData.money :  0 } <a:octet:1010177758250405888>`,
-                },
-                {
-                    name: "Niveau :",
-                    value: `${userData ? userData.level :  0} <:finfrero:900010339540824104>`,
-                },
-                {
-                    name: "Xp :",
-                    value: `${userData ? userData.xp :  0} / ${userData ? round((3.5 * userData.level + 500) * (pow(1.02, userData.level))) :  500}`,
-                },
                 {
                     name: "Date d'anniversaire :",
                     value: `${userData ? (userData.dateAnniv.jour !== 0 ? `${userData.dateAnniv.jour} ${month[userData.dateAnniv.mois - 1]} :tada:` : "Cet utilisateur n'a pas publié son anniversaire !") :  "Cet utilisateur n'a pas publié son anniversaire !"}`

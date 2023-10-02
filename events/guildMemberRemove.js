@@ -13,8 +13,5 @@ module.exports = {
                 });
             });
         }
-        if(member.guild.channels.cache.find(channel => channel.name === member.user.username.toLowerCase()) !== undefined) {
-            member.guild.channels.cache.find(channel => channel.name === member.user.username.toLowerCase()).delete();
-        }
     }
 }
