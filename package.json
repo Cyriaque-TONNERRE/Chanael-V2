@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "better-sqlite3": "^8.4.0",
-    "discord.js": "^14.11.0",
+    "discord.js": "^14.13.0",
     "mathjs": "^11.8.2",
     "node-cron": "^3.0.2",
     "puppeteer": "^20.8.2",

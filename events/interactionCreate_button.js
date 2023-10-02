@@ -177,6 +177,10 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                             .setLabel('CIR 1')
                             .setStyle(ButtonStyle.Primary),
                         new ButtonBuilder()
+                            .setCustomId('ap3')
+                            .setLabel('AP 3')
+                            .setStyle(ButtonStyle.Success),
+                        new ButtonBuilder()
                             .setCustomId('autre2')
                             .setLabel('Autre')
                             .setStyle(ButtonStyle.Danger),
@@ -345,6 +349,27 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
                 interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
             }
         }
+        if (interaction.customId === `ap3`) {
+            if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
+                await interaction.member.roles.add(newMemberRolesId[9]).then(() => {
+                    interaction.reply({content: 'Vous avez bien été ajouté au role AP 3 !', ephemeral: true});
+                    if (interaction.channel.topic !== null) {
+                        if (interaction.channel.topic.startsWith("enregistrement-")) {
+                            interaction.member.roles.remove(roleTempId);
+                            setTimeout(() => {
+                                interaction.channel.delete();
+                            }, 5000);
+                        } else {
+                            interaction.member.roles.remove(oldMemberRolesId)
+                        }
+                    } else {
+                        interaction.member.roles.remove(oldMemberRolesId)
+                    }
+                });
+            } else {
+                interaction.reply({content: 'Vous possedez déja un role pour 2023/2024!', ephemeral: true});
+            }
+        }
         if (interaction.customId === `cir1`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
                 await interaction.member.roles.add(newMemberRolesId[2]).then(() => {
@@ -411,7 +436,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
         if (interaction.customId === `autre_isen`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[9]).then(() => {
+                await interaction.member.roles.add(newMemberRolesId[10]).then(() => {
                     interaction.reply({content: 'Vous avez bien été ajouté au role Vieille Brindille !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
@@ -432,7 +457,7 @@ Nous tenons à préciser que la sanction est à la discretion du modérateur !*
         }
         if (interaction.customId === `externe`) {
             if (!interaction.member.roles.cache.hasAny(...newMemberRolesId)) {
-                await interaction.member.roles.add(newMemberRolesId[10]).then(() => {
+                await interaction.member.roles.add(newMemberRolesId[11]).then(() => {
                     interaction.reply({content: 'Vous avez bien été ajouté au role Parti Trop Tôt !', ephemeral: true});
                     if (interaction.channel.topic !== null) {
                         if (interaction.channel.topic.startsWith("enregistrement-")) {
